@@ -2,6 +2,7 @@ class ReflectCollection {
     constructor(data) {
         this.setData = data || [];
         this.filtered = [];
+        this.__isFiltered = false;
     }
 
     set setData(data) {
@@ -47,7 +48,7 @@ class ReflectCollection {
     }
 
     all() {
-        if(this.filtered.length > 0) {
+        if(this.__isFiltered) {
             return this.filtered;
         }
 
@@ -55,7 +56,7 @@ class ReflectCollection {
     }
 
     first() {
-        if(this.filtered.length > 0) {
+        if(this.__isFiltered) {
             return this.filtered[0];
         }
 
@@ -67,7 +68,7 @@ class ReflectCollection {
             return null;
         }
 
-        if(this.filtered.length > 0) {
+        if(this.__isFiltered) {
             return this.filtered[i];
         }
 
@@ -92,7 +93,7 @@ class ReflectCollection {
     isEmpty() {
         var values = this.data;
 
-        if(this.filtered.length > 0) {
+        if(this.__isFiltered) {
             values = this.filtered;
         }
 
@@ -107,7 +108,7 @@ class ReflectCollection {
         for(var i in this.all()) {
             var data = filter(i, this.get(i));
 
-            if(this.filtered.length > 0) {
+            if(this.__isFiltered) {
                 this.filtered[i] = data;
             } else {
                 this.data[i] = data;
@@ -124,6 +125,7 @@ class ReflectCollection {
     }
 
     doWhere(filtered, key, value) {
+        this.__isFiltered = true;
         this.filtered = filtered;
 
         for(var i in this.data) {
@@ -136,4 +138,4 @@ class ReflectCollection {
     }
 };
 
-export default new ReflectCollection;
+export default ReflectCollection;
