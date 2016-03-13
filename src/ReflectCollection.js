@@ -39,7 +39,7 @@ class ReflectCollection {
         for(var i in this.schema) {
             var key = this.schema[i];
 
-            if(data.hasOwnProperty(key)) {
+            if(!data.hasOwnProperty(key)) {
                 console.log('Collection: key "' + key + '" missing from collection.');
             }
         }
