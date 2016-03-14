@@ -18,6 +18,18 @@ class ReflectCollection {
     }
 
     /**
+     * Setter for filtered data.
+     * @param  {Array} filtered Items of data that have been ran through a filter.
+     * @return {null}           Returns nothing.
+     */
+    set __filtered(filtered) {
+        // We're creating a filter so make sure we're aware.
+        this.__isFiltered = true;
+        // Add passed array to filtered object.
+        this.filtered = filtered;
+    }
+
+    /**
      * Setter for the data to be used in the collection.
      * @param {(String|Array)} data - data to be added
      */
@@ -187,10 +199,7 @@ class ReflectCollection {
      * @return {Object}          Return self
      */
     doWhere(filtered, key, value) {
-        // We're creating a filter so make sure we're aware.
-        this.__isFiltered = true;
-        // Add passed array to filtered object.
-        this.filtered = filtered;
+        this.__filtered = filtered;
 
         for(var i in this.data) {
             if(typeof this.data[i][key] !== 'undefined' && this.data[i][key] === value) {
@@ -207,8 +216,7 @@ class ReflectCollection {
      * @return {Object}        Return self
      */
     except(except) {
-        this.__isFiltered = true;
-        this.filtered = this.__data;
+        this.__filtered = this.__data;
 
         for(var i in this.filtered) {
             for(var e in except) {
