@@ -168,7 +168,8 @@ class ReflectCollection {
     }
 
     /**
-     * Alias for doWhere on existing filtered items.
+     * Alias for doWhere on filtered items as an orWhere,
+     * similar to SQL queries.
      * @param  {String} key   Key to seek
      * @param  {String} value Value to match
      * @return {Object}       Returns result of doWhere
@@ -194,6 +195,27 @@ class ReflectCollection {
         for(var i in this.data) {
             if(typeof this.data[i][key] !== 'undefined' && this.data[i][key] === value) {
                 this.filtered.push(this.data[i]);
+            }
+        }
+
+        return this;
+    }
+
+    /**
+     * Remove specified items from the data or filtered data.
+     * @param  {Array}  except A list of items to exclude
+     * @return {Object}        Return self
+     */
+    except(except) {
+        this.__isFiltered = true;
+        this.filtered = this.__data;
+
+        for(var i in this.filtered) {
+            for(var e in except) {
+                var key = except[e];
+                if(typeof this.filtered[i][key] !== 'undefined') {
+                    delete this.filtered[i][key];
+                }
             }
         }
 
