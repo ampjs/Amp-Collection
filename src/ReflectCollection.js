@@ -5,6 +5,22 @@ class ReflectCollection {
         this.__isFiltered = false;
     }
 
+    /**
+     * Getter for the filtered or standard data.
+     * @return {Array}
+     */
+    get __data() {
+        if(this.__isFiltered) {
+            return this.filtered;
+        }
+
+        return this.data;
+    }
+
+    /**
+     * Setter for the data to be used in the collection.
+     * @param {(String|Array)} data - data to be added
+     */
     set setData(data) {
         if(Array.isArray(data)) {
             this.data = data;
@@ -14,12 +30,24 @@ class ReflectCollection {
         }
     }
 
+    /**
+     * Create the schema for the current Collection.
+     * @param {Array} keys - a list of keys to match
+     * @param {Bool} strict - sets strict mode
+     * @returns {Object} Returns self.
+     */
     schema(keys, strict) {
         this.schema = keys.sort();
         this.schemaStrict = strict || false;
         return this;
     }
 
+    /**
+     * Checks whether the data passed to the Collection
+     * matches the set schema.
+     * @param  {Array} data Array of the data to check
+     * @return {Array}      The data being checked.
+     */
     checkSchema(data) {
         if(!Array.isArray(this.schema)) {
             return data;
@@ -47,39 +75,50 @@ class ReflectCollection {
         return data;
     }
 
+    /**
+     * Get all the data or filtered data.
+     * @returns {Array} The data in the Collection
+     */
     all() {
-        if(this.__isFiltered) {
-            return this.filtered;
-        }
-
-        return this.data;
+        return this.__data;
     }
 
+    /**
+     * First item in the data or filtered data.
+     * @returns {Object} The first item in the Collection
+     */
     first() {
-        if(this.__isFiltered) {
-            return this.filtered[0];
-        }
-
-        return this.data[0];
+        return this.__data[0];
     }
 
+    /**
+     * Get the specified item from the data or filtered data.
+     * @param  {Number} i Number of item to get
+     * @return {Object|Null}   Null if no data found or object defined.
+     */
     get(i) {
-        if(typeof this.data[i] === 'undefined') {
+        if(typeof this.__data[i] === 'undefined') {
             return null;
         }
 
-        if(this.__isFiltered) {
-            return this.filtered[i];
-        }
-
-        return this.data[i];
+        return this.__data[i];
     }
 
+    /**
+     * Add an item to the list of data.
+     * @param {(Object|String)} data Item to add
+     * @returns {Object}             Returns self
+     */
     add(data) {
         this.data.push(this.checkSchema(data));
         return this;
     }
 
+    /**
+     * Checks if Collection has a matching key.
+     * @param  {String}  key Key to seek
+     * @return {(Boolean|Object)} Returns false or self if match.
+     */
     has(key) {
         for(var i in this.data) {
             if(typeof this.data[i][key] === 'undefined') {
@@ -90,12 +129,12 @@ class ReflectCollection {
         return this;
     }
 
+    /**
+     * Check if data or filtered data has any items.
+     * @return {Boolean}
+     */
     isEmpty() {
-        var values = this.data;
-
-        if(this.__isFiltered) {
-            values = this.filtered;
-        }
+        var values = this.__data;
 
         if(values.length > 0) {
             return false;
@@ -104,28 +143,52 @@ class ReflectCollection {
         return true;
     }
 
+    /**
+     * Iterate through each item and run through
+     * a passed filter function/callback.
+     * @param  {Function} filter Callback filter
+     * @return {Object}          Returns self.
+     */
     filter(filter) {
-        for(var i in this.all()) {
-            var data = filter(i, this.get(i));
-
-            if(this.__isFiltered) {
-                this.filtered[i] = data;
-            } else {
-                this.data[i] = data;
-            }
+        for(var i in this.__data) {
+            this.__data[i] = filter(i, this.get(i));
         }
+
+        return this;
     }
 
+    /**
+     * Alias for doWhere to create list of filtered items.
+     * @param  {String} key   Key to seek
+     * @param  {String} value Value to match
+     * @return {Object}       Returns result of doWhere
+     */
     where(key, value) {
         return this.doWhere([], key, value);
     }
 
+    /**
+     * Alias for doWhere on existing filtered items.
+     * @param  {String} key   Key to seek
+     * @param  {String} value Value to match
+     * @return {Object}       Returns result of doWhere
+     */
     orWhere(key, value) {
         return this.doWhere(this.filtered, key, value);
     }
 
+    /**
+     * Loops through items and builds or extends filtered
+     * Array with items that match key and value.
+     * @param  {Array}  filtered The current filtered items
+     * @param  {String} key      Key to seek
+     * @param  {String} value    Value to match
+     * @return {Object}          Return self
+     */
     doWhere(filtered, key, value) {
+        // We're creating a filter so make sure we're aware.
         this.__isFiltered = true;
+        // Add passed array to filtered object.
         this.filtered = filtered;
 
         for(var i in this.data) {
