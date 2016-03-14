@@ -1,32 +1,32 @@
 class ReflectCollection {
     constructor(data) {
         this.setData = data || [];
-        this.filtered = [];
-        this.__isFiltered = false;
+        this.processed = [];
+        this.__isProcessed = false;
     }
 
     /**
-     * Getter for the filtered or standard data.
+     * Getter for the processed or standard data.
      * @return {Array}
      */
     get __data() {
-        if(this.__isFiltered) {
-            return this.filtered;
+        if(this.__isProcessed) {
+            return this.processed;
         }
 
         return this.data;
     }
 
     /**
-     * Setter for filtered data.
-     * @param  {Array} filtered Items of data that have been ran through a filter.
+     * Setter for processed data.
+     * @param  {Array} processed Items of data that have been ran through a filter.
      * @return {null}           Returns nothing.
      */
-    set __filtered(filtered) {
+    set __processed(processed) {
         // We're creating a filter so make sure we're aware.
-        this.__isFiltered = true;
-        // Add passed array to filtered object.
-        this.filtered = filtered;
+        this.__isProcessed = true;
+        // Add passed array to processed object.
+        this.processed = processed;
     }
 
     /**
@@ -88,7 +88,7 @@ class ReflectCollection {
     }
 
     /**
-     * Get all the data or filtered data.
+     * Get all the data or processed data.
      * @returns {Array} The data in the Collection
      */
     all() {
@@ -96,7 +96,7 @@ class ReflectCollection {
     }
 
     /**
-     * First item in the data or filtered data.
+     * First item in the data or processed data.
      * @returns {Object} The first item in the Collection
      */
     first() {
@@ -104,7 +104,7 @@ class ReflectCollection {
     }
 
     /**
-     * Get the specified item from the data or filtered data.
+     * Get the specified item from the data or processed data.
      * @param  {Number} i Number of item to get
      * @return {Object|Null}   Null if no data found or object defined.
      */
@@ -142,7 +142,7 @@ class ReflectCollection {
     }
 
     /**
-     * Check if data or filtered data has any items.
+     * Check if data or processed data has any items.
      * @return {Boolean}
      */
     isEmpty() {
@@ -170,7 +170,7 @@ class ReflectCollection {
     }
 
     /**
-     * Alias for doWhere to create list of filtered items.
+     * Alias for doWhere to create list of processed items.
      * @param  {String} key   Key to seek
      * @param  {String} value Value to match
      * @return {Object}       Returns result of doWhere
@@ -180,30 +180,30 @@ class ReflectCollection {
     }
 
     /**
-     * Alias for doWhere on filtered items as an orWhere,
+     * Alias for doWhere on processed items as an orWhere,
      * similar to SQL queries.
      * @param  {String} key   Key to seek
      * @param  {String} value Value to match
      * @return {Object}       Returns result of doWhere
      */
     orWhere(key, value) {
-        return this.doWhere(this.filtered, key, value);
+        return this.doWhere(this.processed, key, value);
     }
 
     /**
-     * Loops through items and builds or extends filtered
+     * Loops through items and builds or extends processed
      * Array with items that match key and value.
-     * @param  {Array}  filtered The current filtered items
+     * @param  {Array}  processed The current processed items
      * @param  {String} key      Key to seek
      * @param  {String} value    Value to match
      * @return {Object}          Return self
      */
-    doWhere(filtered, key, value) {
-        this.__filtered = filtered;
+    doWhere(processed, key, value) {
+        this.__processed = processed;
 
         for(var i in this.data) {
             if(typeof this.data[i][key] !== 'undefined' && this.data[i][key] === value) {
-                this.filtered.push(this.data[i]);
+                this.processed.push(this.data[i]);
             }
         }
 
@@ -211,18 +211,18 @@ class ReflectCollection {
     }
 
     /**
-     * Remove specified items from the data or filtered data.
+     * Remove specified items from the data or processed data.
      * @param  {Array}  except A list of items to exclude
      * @return {Object}        Return self
      */
     except(except) {
-        this.__filtered = this.__data;
+        this.__processed = this.__data;
 
-        for(var i in this.filtered) {
+        for(var i in this.processed) {
             for(var e in except) {
                 var key = except[e];
-                if(typeof this.filtered[i][key] !== 'undefined') {
-                    delete this.filtered[i][key];
+                if(typeof this.processed[i][key] !== 'undefined') {
+                    delete this.processed[i][key];
                 }
             }
         }
