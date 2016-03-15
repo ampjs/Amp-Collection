@@ -15,4 +15,4 @@ ratings:
   - "**.js"
   - "**.jsx"
 exclude_paths:
-    - lib/
+    - lib/**/*
