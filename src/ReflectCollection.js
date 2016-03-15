@@ -76,7 +76,7 @@ class ReflectCollection {
             }
         }
 
-        for(var i in this.schema) {
+        for(var i = 0; i < this.schema.length; i++) {
             var key = this.schema[i];
 
             if(!data.hasOwnProperty(key)) {
@@ -132,7 +132,7 @@ class ReflectCollection {
      * @return {(Boolean|Object)} Returns false or self if match.
      */
     has(key) {
-        for(var i in this.data) {
+        for(var i = 0; i < this.data.length; i++) {
             if(typeof this.data[i][key] === 'undefined') {
                 return false;
             }
@@ -162,7 +162,7 @@ class ReflectCollection {
      * @return {Object}          Returns self.
      */
     filter(filter) {
-        for(var i in this.__data) {
+        for(var i = 0; i < this.__data.length; i++) {
             this.__data[i] = filter(i, this.get(i));
         }
 
@@ -201,7 +201,7 @@ class ReflectCollection {
     doWhere(processed, key, value) {
         this.__processed = processed;
 
-        for(var i in this.data) {
+        for(var i = 0; i < this.data.length; i++) {
             if(typeof this.data[i][key] !== 'undefined' && this.data[i][key] === value) {
                 this.processed.push(this.data[i]);
             }
@@ -218,8 +218,8 @@ class ReflectCollection {
     except(except) {
         this.__processed = this.__data;
 
-        for(var i in this.processed) {
-            for(var e in except) {
+        for(var i = 0; i < this.processed.length; i++) {
+            for(var e = 0; e < except.length; e++) {
                 var key = except[e];
                 if(typeof this.processed[i][key] !== 'undefined') {
                     delete this.processed[i][key];
@@ -229,6 +229,6 @@ class ReflectCollection {
 
         return this;
     }
-};
+}
 
 export default ReflectCollection;
