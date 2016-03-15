@@ -1,11 +1,6 @@
 # Reflect Collection
 A simple Javascript-based Collection class based on Laravel 5 Collections.
 
-## Install
-```
-npm install refl-ct/collection
-```
-
 ## Usage
 #### Creating a Collection
 ```js
