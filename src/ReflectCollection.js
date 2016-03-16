@@ -7,7 +7,7 @@ class ReflectCollection {
 
     /**
      * Getter for the processed or standard data.
-     * @return {Array}
+     * @return {Array}     Returns the data
      */
     get __data() {
         if(this.__isProcessed) {
@@ -51,6 +51,7 @@ class ReflectCollection {
     schema(keys, strict) {
         this.schema = keys.sort();
         this.schemaStrict = strict || false;
+
         return this;
     }
 
@@ -66,21 +67,48 @@ class ReflectCollection {
         }
 
         if(this.schemaStrict) {
-            var dataKeys = Object.keys(data).sort(),
-                compare = (JSON.stringify(dataKeys) === JSON.stringify(this.schema));
-
-            if(!compare) {
-                console.log('Collection: Schema in strict mode -- keys do not match. Expecting: ', this.schema, 'given; ', dataKeys);
-                window.stop();
-                return;
-            }
+            return this.__strictSchema(data);
         }
 
-        for(var i = 0; i < this.schema.length; i++) {
-            var key = this.schema[i];
+        return this.__nonStrictSchema(data);
+    }
 
-            if(!data.hasOwnProperty(key)) {
-                console.log('Collection: key "' + key + '" missing from collection.');
+    /**
+     * Strictly checks the schema and throws
+     * and stop if check doesn't pass.
+     * @param  {Array} data Object of data to process
+     * @return {Null}       Return nothing
+     */
+    __strictSchema(data) {
+        let dataKeys = Object.keys(data).sort();
+
+        if(JSON.stringify(dataKeys) !== JSON.stringify(this.schema)) {
+            console.log(
+                'Collection:',
+                'Schema in strict mode -- keys do not match. Expecting:',
+                this.schema,
+                'given;',
+                dataKeys
+            );
+            window.stop();
+        }
+
+        return data;
+    }
+
+    /**
+     * Checks the schema in a non strict fashion
+     * and outputs any negative results to console.
+     * @param  {Array} data Object of data to process
+     * @return {Object}     Returns the data passed
+     */
+    __nonStrictSchema(data) {
+        for(let key = 0; key < this.schema.length; key++) {
+            if(!data.hasOwnProperty(this.schema[key])) {
+                console.log(
+                    'Collection:',
+                    'key "${this.schema[i]}" missing from collection.'
+                );
             }
         }
 
@@ -105,24 +133,25 @@ class ReflectCollection {
 
     /**
      * Get the specified item from the data or processed data.
-     * @param  {Number} i Number of item to get
+     * @param  {Number} item Number of item to get
      * @return {Object|Null}   Null if no data found or object defined.
      */
-    get(i) {
-        if(typeof this.__data[i] === 'undefined') {
+    get(item) {
+        if(typeof this.__data[item] === 'undefined') {
             return null;
         }
 
-        return this.__data[i];
+        return this.__data[item];
     }
 
     /**
      * Add an item to the list of data.
-     * @param {(Object|String)} data Item to add
-     * @returns {Object}             Returns self
+     * @param {(Object|String)} value Item to add
+     * @returns {Object}              Returns self
      */
-    add(data) {
-        this.data.push(this.checkSchema(data));
+    addItem(value) {
+        this.data.push(this.checkSchema(value));
+
         return this;
     }
 
@@ -132,8 +161,8 @@ class ReflectCollection {
      * @return {(Boolean|Object)} Returns false or self if match.
      */
     has(key) {
-        for(var i = 0; i < this.data.length; i++) {
-            if(typeof this.data[i][key] === 'undefined') {
+        for(let item = 0; item < this.data.length; item++) {
+            if(typeof this.data[item][key] === 'undefined') {
                 return false;
             }
         }
@@ -143,10 +172,10 @@ class ReflectCollection {
 
     /**
      * Check if data or processed data has any items.
-     * @return {Boolean}
+     * @return {Boolean}    Returns boolean
      */
     isEmpty() {
-        var values = this.__data;
+        let values = this.__data;
 
         if(values.length > 0) {
             return false;
@@ -162,8 +191,8 @@ class ReflectCollection {
      * @return {Object}          Returns self.
      */
     filter(filter) {
-        for(var i = 0; i < this.__data.length; i++) {
-            this.__data[i] = filter(i, this.get(i));
+        for(let item = 0; item < this.__data.length; item++) {
+            this.__data[item] = filter(item, this.get(item));
         }
 
         return this;
@@ -201,9 +230,11 @@ class ReflectCollection {
     doWhere(processed, key, value) {
         this.__processed = processed;
 
-        for(var i = 0; i < this.data.length; i++) {
-            if(typeof this.data[i][key] !== 'undefined' && this.data[i][key] === value) {
-                this.processed.push(this.data[i]);
+        for(let item = 0; item < this.data.length; item++) {
+            let keyExists = typeof this.data[item][key] !== 'undefined';
+
+            if(keyExists && this.data[item][key] === value) {
+                this.processed.push(this.data[item]);
             }
         }
 
@@ -218,11 +249,12 @@ class ReflectCollection {
     except(except) {
         this.__processed = this.__data;
 
-        for(var i = 0; i < this.processed.length; i++) {
-            for(var e = 0; e < except.length; e++) {
-                var key = except[e];
-                if(typeof this.processed[i][key] !== 'undefined') {
-                    delete this.processed[i][key];
+        for(let item = 0; item < this.processed.length; item++) {
+            for(let eitem = 0; eitem < except.length; eitem++) {
+                let key = except[eitem];
+
+                if(typeof this.processed[item][key] !== 'undefined') {
+                    Reflect.deleteProperty(this.processed[item], key);
                 }
             }
         }
