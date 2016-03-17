@@ -11,8 +11,8 @@ engines:
     enabled: true
 ratings:
   paths:
-  - "**.inc"
-  - "**.js"
-  - "**.jsx"
+    - src/**
 exclude_paths:
+    - "*.js"
     - lib/**/*
+    - node_modules/**/
