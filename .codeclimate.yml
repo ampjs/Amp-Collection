@@ -7,12 +7,15 @@ engines:
       - javascript
   eslint:
     enabled: true
+    exclude_fingerprints:
+      # Ignoring false "Illegal export declaration" issue
+      - 50151efaf042a4073de8cc12d888cbbd
   fixme:
     enabled: true
 ratings:
   paths:
-  - "**.inc"
-  - "**.js"
-  - "**.jsx"
+    - src/**
 exclude_paths:
+    - "*.js"
     - lib/**/*
+    - node_modules/**/

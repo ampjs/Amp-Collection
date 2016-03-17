@@ -26,7 +26,7 @@ let FamilyCollection = new ReflectCollection(family);
 
 ### Adding an extra object
 ```js
-FamilyCollection.add({
+FamilyCollection.addItem({
 	‘forename’: ‘Joseph’,
 	‘surname’: ‘Pearson’,
 	‘age’: ’87’,
