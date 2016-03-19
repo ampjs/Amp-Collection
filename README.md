@@ -126,7 +126,7 @@ Setting a schema allows for checking that the required keys match the data given
 _Note: Keys set in the object but not in the schema are treated as optional._
 ```js
 FamilyCollection.schema([‘forename’, ‘surname’, ‘age’, ‘email’]);
-FamilyCollection.add({
+FamilyCollection.addItem({
 	‘forename’: ‘Florance’,
 	‘surname’: ‘Pearson’,
 	‘age’: ’89’
