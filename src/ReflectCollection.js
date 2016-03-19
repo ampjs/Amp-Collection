@@ -107,7 +107,7 @@ class ReflectCollection {
             if(!data.hasOwnProperty(this.schema[key])) {
                 console.log(
                     'Collection:',
-                    'key "${this.schema[i]}" missing from collection.'
+                    'key "' + this.schema[key] + '" missing from collection.'
                 );
             }
         }
@@ -204,8 +204,13 @@ class ReflectCollection {
      * @param  {String} value Value to match
      * @return {Object}       Returns result of doWhere
      */
-    where(key, value) {
-        return this.doWhere([], key, value);
+    where(key, operator, value) {
+        if(arguments.length === 2) {
+            value       = operator
+            operator    = '=';
+        }
+
+        return this.doWhere([], key, operator, value);
     }
 
     /**
@@ -215,8 +220,13 @@ class ReflectCollection {
      * @param  {String} value Value to match
      * @return {Object}       Returns result of doWhere
      */
-    orWhere(key, value) {
-        return this.doWhere(this.processed, key, value);
+    orWhere(key, operator, value) {
+        if(arguments.length === 2) {
+            value       = operator
+            operator    = '=';
+        }
+
+        return this.doWhere(this.processed, key, operator, value);
     }
 
     /**
@@ -227,18 +237,41 @@ class ReflectCollection {
      * @param  {String} value    Value to match
      * @return {Object}          Return self
      */
-    doWhere(processed, key, value) {
+    doWhere(processed, key, operator, value) {
         this.__processed = processed;
 
         for(let item = 0; item < this.data.length; item++) {
-            let keyExists = typeof this.data[item][key] !== 'undefined';
+            if(typeof this.data[item][key] === 'undefined') {
+                return this;
+            }
 
-            if(keyExists && this.data[item][key] === value) {
+            let where = this.__whereOperators(this.data[item][key], operator, value);
+
+            if(where) {
                 this.processed.push(this.data[item]);
             }
         }
 
         return this;
+    }
+
+    __whereOperators(key, operator, value) {
+        switch(operator) {
+            default:
+            case '=':
+            case '==':
+                return key == value;
+            case '===':
+                return key === value;
+            case '>':
+                return key > value;
+            case '>=':
+                return key >= value;
+            case '<':
+                return key < value;
+            case '<=':
+                return key <= value;
+        }
     }
 
     /**
@@ -254,7 +287,7 @@ class ReflectCollection {
                 let key = except[eitem];
 
                 if(typeof this.processed[item][key] !== 'undefined') {
-                    Reflect.deleteProperty(this.processed[item], key);
+                    delete this.processed[item][key];
                 }
             }
         }
