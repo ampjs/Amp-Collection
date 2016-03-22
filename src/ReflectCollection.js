@@ -1,5 +1,9 @@
+import FingerPrint from './FingerPrint.js';
+
 class ReflectCollection {
     constructor(data) {
+        this.FingerPrint = new FingerPrint();
+
         this.setData = data || [];
         this.processed = [];
         this.__isProcessed = false;
@@ -40,6 +44,8 @@ class ReflectCollection {
             this.data = [];
             this.data.push(data);
         }
+
+        this.data = this.FingerPrint.addPrints(this.data);
     }
 
     /**
@@ -151,6 +157,7 @@ class ReflectCollection {
      */
     addItem(value) {
         this.data.push(this.checkSchema(value));
+        this.data = this.FingerPrint.addPrints(this.data);
 
         return this;
     }

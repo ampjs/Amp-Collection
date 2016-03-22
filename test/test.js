@@ -168,8 +168,24 @@ describe('ReflectCollection Example data', function() {
                 });
 
                 chai.expect(consoleValue).to.equal(false);
-                chai.expect(consoleMessage).to.equal("Collection: key email missing from collection.");
+                chai.expect(consoleMessage).to.equal("Collection: key \"email\" missing from collection.");
             });
+        });
+    });
+
+    describe('Hash', function() {
+        describe('hash()', function() {
+            it('Should return a hashed value', function() {
+                // Try to overwrite.
+                FamilyCollection.data[0].__hash__ = 'test';
+
+                chai.expect(FamilyCollection.data[0].__hash__).to.be.an('number');
+                chai.expect(FamilyCollection.data[0].__hash__).to.be.above(0);
+                chai.expect(FamilyCollection.data[1].__hash__).to.be.an('number');
+                chai.expect(FamilyCollection.data[1].__hash__).to.be.above(0);
+                chai.expect(FamilyCollection.data[2].__hash__).to.be.an('number');
+                chai.expect(FamilyCollection.data[2].__hash__).to.be.above(0);
+            })
         });
     });
 });
