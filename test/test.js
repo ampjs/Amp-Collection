@@ -1,10 +1,10 @@
 var assert = require('assert'),
     chai = require('chai'),
-    ReflectCollection = require('../reflect-collection.js').default;
+    AmpCollection = require('../amp-collection.js').default;
 
-var InitialCollection = new ReflectCollection();
+var InitialCollection = new AmpCollection();
 
-var FamilyCollection = new ReflectCollection([{
+var FamilyCollection = new AmpCollection([{
     'forename': 'Mary',
     'surname': 'Lamb',
     'age': 45,
@@ -21,7 +21,7 @@ var FamilyCollection = new ReflectCollection([{
     'email': 'steven.lamb@family.com'
 }]);
 
-describe('ReflectCollection Initial', function() {
+describe('AmpCollection Initial', function() {
     it('data should be an empty array', function() {
         chai.expect(InitialCollection).to.be.an('object');
         chai.expect(InitialCollection.data.length).to.equal(0);
@@ -38,7 +38,7 @@ describe('ReflectCollection Initial', function() {
     });
 });
 
-describe('ReflectCollection Example data', function() {
+describe('AmpCollection Example data', function() {
     describe('Example data', function() {
         it('all() - Should get all three FamilyCollection values', function() {
             chai.expect(FamilyCollection.all()).to.be.an('array');
@@ -168,7 +168,7 @@ describe('ReflectCollection Example data', function() {
                 });
 
                 chai.expect(consoleValue).to.equal(false);
-                chai.expect(consoleMessage).to.equal("Collection: key email missing from collection.");
+                chai.expect(consoleMessage).to.equal("Collection: key \"email\" missing from collection.");
             });
         });
     });
