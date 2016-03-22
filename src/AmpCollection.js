@@ -1,4 +1,4 @@
-class ReflectCollection {
+class AmpCollection {
     constructor(data) {
         this.setData = data || [];
         this.processed = [];
@@ -296,4 +296,4 @@ class ReflectCollection {
     }
 }
 
-export default ReflectCollection;
+export default AmpCollection;

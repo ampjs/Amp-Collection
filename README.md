@@ -1,4 +1,4 @@
-# Reflect Collection
+# Amp Collection
 A simple Javascript-based Collection class based on Laravel 5 Collections.
 
 ## Usage
@@ -21,7 +21,7 @@ let family = [{
 	‘email’: ’steven.lamb@family.com’
 }];
 
-let FamilyCollection = new ReflectCollection(family);
+let FamilyCollection = new AmpCollection(family);
 ```
 
 ### Adding an extra object
