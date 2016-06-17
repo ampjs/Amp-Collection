@@ -7,6 +7,8 @@ class ReflectCollection {
         this.setData = data || [];
         this.processed = [];
         this.__isProcessed = false;
+
+        return this;
     }
 
     /**
@@ -234,6 +236,24 @@ class ReflectCollection {
         }
 
         return this.doWhere(this.processed, key, operator, value);
+    }
+
+    unique() {
+        let stored = [];
+
+        for(let item = 0; item < this.data.length; item++) {
+            let hash = this.data[item].__hash__;
+
+            this.doWhere([], '__hash__', '=', hash);
+
+            if(this.processed.length === 1) {
+                stored.push(this.processed[0]);
+            }
+        }
+
+        this.processed = stored;
+
+        return this;
     }
 
     /**

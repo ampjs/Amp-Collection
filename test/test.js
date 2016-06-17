@@ -19,6 +19,11 @@ var FamilyCollection = new ReflectCollection([{
     'surname': 'Lamb',
     'age': 12,
     'email': 'steven.lamb@family.com'
+}, {
+    'forename': 'Steven',
+    'surname': 'Lamb',
+    'age': 12,
+    'email': 'steven.lamb@family.com'
 }]);
 
 describe('ReflectCollection Initial', function() {
@@ -42,7 +47,7 @@ describe('ReflectCollection Example data', function() {
     describe('Example data', function() {
         it('all() - Should get all three FamilyCollection values', function() {
             chai.expect(FamilyCollection.all()).to.be.an('array');
-            chai.expect(FamilyCollection.all().length).to.equal(3);
+            chai.expect(FamilyCollection.all().length).to.equal(4);
         });
     });
 
@@ -57,7 +62,7 @@ describe('ReflectCollection Example data', function() {
 
             chai.expect(Item).to.be.an('object');
             chai.expect(FamilyCollection.all()).to.be.an('array');
-            chai.expect(FamilyCollection.all().length).to.equal(4);
+            chai.expect(FamilyCollection.all().length).to.equal(5);
         });
     });
 
@@ -96,13 +101,13 @@ describe('ReflectCollection Example data', function() {
             it('(<) Where age is less than 45', function() {
                 var lessThan = FamilyCollection.where('age', '<', 45).all();
                 chai.expect(lessThan).to.be.an('array');
-                chai.expect(lessThan.length).to.equal(2);
+                chai.expect(lessThan.length).to.equal(3);
             });
 
             it('(<=) Where age is less than or equal to 45', function() {
                 var lessThan = FamilyCollection.where('age', '<=', 45).all();
                 chai.expect(lessThan).to.be.an('array');
-                chai.expect(lessThan.length).to.equal(3);
+                chai.expect(lessThan.length).to.equal(4);
             });
         });
 
@@ -113,6 +118,15 @@ describe('ReflectCollection Example data', function() {
                 for(var i in exceptAge) {
                     chai.expect(exceptAge[i].age).to.be.undefined;
                 }
+            });
+        });
+
+        describe('unqiue()', function() {
+            it('Only return unique items', function() {
+                var uniques = FamilyCollection.unique().all();
+
+                chai.expect(uniques).to.be.an('array');
+                chai.expect(uniques.length).to.equal(3);
             });
         });
     });

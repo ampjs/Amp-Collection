@@ -1,6 +1,6 @@
 class FingerPrint {
     constructor() {
-
+        
     }
 
     /**
@@ -60,6 +60,10 @@ class FingerPrint {
         }
 
         return data;
+    }
+
+    getHashes() {
+        console.log(this);
     }
 }
 
