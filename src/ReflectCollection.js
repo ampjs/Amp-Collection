@@ -238,13 +238,16 @@ class ReflectCollection {
         return this.doWhere(this.processed, key, operator, value);
     }
 
-    unique() {
+    unique(key) {
+        key = key || '__hash__';
         let stored = [];
 
         for(let item = 0; item < this.data.length; item++) {
-            let hash = this.data[item].__hash__;
+            let value = this.data[item][key];
 
-            this.doWhere([], '__hash__', '=', hash);
+            // console.log('value ', this.data[item]);
+
+            this.doWhere([], key, '=', value);
 
             if(this.processed.length === 1) {
                 stored.push(this.processed[0]);
@@ -282,6 +285,12 @@ class ReflectCollection {
         return this;
     }
 
+    reset() {
+        this.processed = this.data;
+
+        return this;
+    }
+
     __whereOperators(key, operator, value) {
         switch(operator) {
             default:
@@ -308,16 +317,21 @@ class ReflectCollection {
      */
     except(except) {
         this.__processed = this.__data;
+        let removed = [];
 
         for(let item = 0; item < this.processed.length; item++) {
-            for(let eitem = 0; eitem < except.length; eitem++) {
-                let key = except[eitem];
+            let items = this.processed[item];
 
-                if(typeof this.processed[item][key] !== 'undefined') {
-                    delete this.processed[item][key];
+            removed[item] = {};
+
+            for(let name in items) {
+                if(except.indexOf(name) === -1) {
+                    removed[item][name] = items[name];
                 }
             }
         }
+
+        this.processed = removed;
 
         return this;
     }

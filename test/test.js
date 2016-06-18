@@ -128,6 +128,13 @@ describe('ReflectCollection Example data', function() {
                 chai.expect(uniques).to.be.an('array');
                 chai.expect(uniques.length).to.equal(3);
             });
+
+            it('Only return unique items matching the \'age\' key', function() {
+                var uniques = FamilyCollection.unique('age').all();
+
+                chai.expect(uniques).to.be.an('array');
+                chai.expect(uniques.length).to.equal(3);
+            });
         });
     });
 
