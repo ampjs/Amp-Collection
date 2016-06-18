@@ -6,4 +6,7 @@
     "source": "./test"
   },
   "title": "AmpCollection",
+  "manual": {
+    "usage": ["./manual/usage.md"]
+  }
 }
