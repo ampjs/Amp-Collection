@@ -1,6 +1,6 @@
 var assert = require('assert'),
     chai = require('chai'),
-    ReflectCollection = require('../reflect-collection.js').default;
+    ReflectCollection = require('../amp-collection.js').default;
 
 var InitialCollection = new ReflectCollection();
 

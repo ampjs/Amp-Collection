@@ -1,6 +1,6 @@
 import FingerPrint from './FingerPrint.js';
 
-class ReflectCollection {
+class AmpCollection {
     constructor(data) {
         this.FingerPrint = new FingerPrint();
 
@@ -337,4 +337,4 @@ class ReflectCollection {
     }
 }
 
-export default ReflectCollection;
+export default AmpCollection;

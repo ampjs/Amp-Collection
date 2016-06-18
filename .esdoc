@@ -1,0 +1,9 @@
+{
+  "source": "./src",
+  "destination": "./documentation",
+  "test": {
+    "type": "mocha",
+    "source": "./test"
+  },
+  "title": "AmpCollection",
+}
