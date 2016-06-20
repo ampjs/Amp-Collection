@@ -1,6 +1,11 @@
 import FingerPrint from './FingerPrint.js';
 
 class AmpCollection {
+    /**
+     * Construct the class
+     * @param  {Array}  data=[]    The given data to add to a collection.
+     * @return {Object}            Returns self
+     */
     constructor(data) {
         this.FingerPrint = new FingerPrint();
 
@@ -26,7 +31,7 @@ class AmpCollection {
     /**
      * Setter for processed data.
      * @param  {Array} processed Items of data that have been ran through a filter.
-     * @return {null}           Returns nothing.
+     * @return {void}            Returns nothing.
      */
     set __processed(processed) {
         // We're creating a filter so make sure we're aware.
@@ -37,7 +42,7 @@ class AmpCollection {
 
     /**
      * Setter for the data to be used in the collection.
-     * @param {(String|Array)} data - data to be added
+     * @param {(String|Array)} data Data to be added
      */
     set setData(data) {
         if(Array.isArray(data)) {
@@ -52,9 +57,9 @@ class AmpCollection {
 
     /**
      * Create the schema for the current Collection.
-     * @param {Array} keys - a list of keys to match
-     * @param {Bool} strict - sets strict mode
-     * @returns {Object} Returns self.
+     * @param {Array}   keys            A list of keys to match
+     * @param {Bool}    strict=false    Sets strict mode
+     * @returns {Object}                Returns self.
      */
     schema(keys, strict) {
         this.schema = keys.sort();
@@ -141,8 +146,8 @@ class AmpCollection {
 
     /**
      * Get the specified item from the data or processed data.
-     * @param  {Number} item Number of item to get
-     * @return {Object|Null}   Null if no data found or object defined.
+     * @param  {Number}     item Number of item to get
+     * @return {Object|Null}     Null if no data found or object defined.
      */
     get(item) {
         if(typeof this.__data[item] === 'undefined') {
@@ -295,12 +300,25 @@ class AmpCollection {
         return this;
     }
 
+    /**
+     * Resets the processed data collection back to
+     * its original state
+     * @return {Object}             Return self
+     */
     reset() {
         this.processed = this.data;
 
         return this;
     }
 
+    /**
+     * Does the comparison logic based on the given
+     * operator.
+     * @param  {String} key         Key to seek
+     * @param  {String} operator    Operator to be used in comparison
+     * @param  {String} value       Value to match
+     * @return {Boolean}            Returns whether matches or not.
+     */
     __whereOperators(key, operator, value) {
         switch(operator) {
             default:
