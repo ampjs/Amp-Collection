@@ -33,8 +33,8 @@ describe('AmpCollection Initial', function() {
     });
 
     it('__isProcessed should be a false boolean', function() {
-        chai.expect(InitialCollection.__isProcessed).to.be.an('boolean');
-        chai.expect(InitialCollection.__isProcessed).to.equal(false);
+        chai.expect(InitialCollection._isProcessed).to.be.an('boolean');
+        chai.expect(InitialCollection._isProcessed).to.equal(false);
     });
 
     it('processed should be an empty array', function() {
@@ -198,14 +198,16 @@ describe('AmpCollection Example data', function() {
         describe('hash()', function() {
             it('Should return a hashed value', function() {
                 // Try to overwrite.
-                FamilyCollection.data[0].__hash__ = 'test';
+                FamilyCollection.data[0].__FingerPrint__ = 'test';
 
-                chai.expect(FamilyCollection.data[0].__hash__).to.be.an('number');
-                chai.expect(FamilyCollection.data[0].__hash__).to.be.above(0);
-                chai.expect(FamilyCollection.data[1].__hash__).to.be.an('number');
-                chai.expect(FamilyCollection.data[1].__hash__).to.be.above(0);
-                chai.expect(FamilyCollection.data[2].__hash__).to.be.an('number');
-                chai.expect(FamilyCollection.data[2].__hash__).to.be.above(0);
+                console.log(FamilyCollection.where('forename', 'Mary').first().__FingerPrint__);
+
+                chai.expect(FamilyCollection.data[0].__FingerPrint__).to.be.an('number');
+                chai.expect(FamilyCollection.data[0].__FingerPrint__).to.be.above(0);
+                chai.expect(FamilyCollection.data[1].__FingerPrint__).to.be.an('number');
+                chai.expect(FamilyCollection.data[1].__FingerPrint__).to.be.above(0);
+                chai.expect(FamilyCollection.data[2].__FingerPrint__).to.be.an('number');
+                chai.expect(FamilyCollection.data[2].__FingerPrint__).to.be.above(0);
             })
         });
     });
