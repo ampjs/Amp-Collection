@@ -1,5 +1,5 @@
 # AmpCollection Usage
-#### Creating a Collection
+## Creating a Collection
 ```js
 let family = [{
 	'forename': 'Mary',
@@ -21,7 +21,7 @@ let family = [{
 let FamilyCollection = new AmpCollection(family);
 ```
 
-### Adding an extra object
+## Adding an extra object
 ```js
 FamilyCollection.addItem({
 	'forename': 'Joseph',
@@ -32,7 +32,7 @@ FamilyCollection.addItem({
 ```
 
 
-#### Where Statements
+## Where Statements
 ```js
 FamilyCollection.where('forename', 'Lucy').orWhere('surname', 'Pearson').all();
 ```
@@ -53,7 +53,7 @@ FamilyCollection.where('forename', 'Lucy').orWhere('surname', 'Pearson').all();
 }]
 ```
 
-**Where operators**
+### Where operators
 The `.where()` method also supports typical operators, such as the following;
 * `=` or `==` and `===`
 * `>` and `>=`
@@ -64,7 +64,6 @@ The `.where()` method also supports typical operators, such as the following;
 ```js
 FamilyCollection.where('age', '>=', 45).all();
 ```
-
 
 **Result**
 ```
@@ -81,7 +80,7 @@ FamilyCollection.where('age', '>=', 45).all();
 }]
 ```
 
-#### Getting the first result
+## Getting the first result
 ```js
 FamilyCollection.where('surname', 'Lamb').first();
 ```
@@ -96,7 +95,7 @@ FamilyCollection.where('surname', 'Lamb').first();
 }]
 ```
 
-#### Checking if a key exists
+## Checking if a key exists
 ```js
 if(FamilyCollection.has('shoesize')) {
 	return FamilyCollection.all();
@@ -110,7 +109,7 @@ if(FamilyCollection.has('shoesize')) {
 FamilyCollection does not contain a shoesize.
 ```
 
-#### Check if processed data is empty
+## Check if processed data is empty
 ```js
 FamilyCollection.where('forename', 'Annabel');
 
@@ -124,7 +123,7 @@ if(FamilyCollection.isEmpty()) {
 No members found.
 ```
 
-#### Excluding data
+## Excluding data
 ```js
 FamilyCollection.except(['email', 'age']).all();
 ```
@@ -146,7 +145,7 @@ FamilyCollection.except(['email', 'age']).all();
 }];
 ```
 
-#### Set a schema
+## Set a schema
 Setting a schema allows for checking that the required keys match the data given. Schema checks are run every time new data is added.
 
 _Note: Keys set in the object but not in the schema are treated as optional._
@@ -173,5 +172,5 @@ Collection: key “email” missing from collection.
 }
 ```
 
-**Strict Schema**
+### Strict Schema
 `.schema()` has a second argument that can be set to `true` or `false` *(default)* for setting strict mode. Strict mode will cause the script to stop and return no data structure does not match with that set in the schema and ignores the optional note above.
