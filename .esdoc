@@ -1,6 +1,7 @@
 {
   "source": "./src",
   "destination": "./documentation",
+  "access": ["public", "private"],
   "test": {
     "type": "mocha",
     "source": "./test"
