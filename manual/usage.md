@@ -18,7 +18,7 @@ let family = [{
 	‘email’: ’steven.lamb@family.com’
 }];
 
-let FamilyCollection = new ReflectCollection(family);
+let FamilyCollection = new AmpCollection(family);
 ```
 
 ### Adding an extra object
