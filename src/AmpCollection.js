@@ -238,6 +238,13 @@ class AmpCollection {
         return this.doWhere(this.processed, key, operator, value);
     }
 
+    /**
+     * Gets items that are unique in the collection. Uses the item FingerPrint
+     * to find and remove duplicates. By using a key you can specify
+     * finding duplicates by an alternative match.
+     * @param   {String} key=__hash__   Key to find uniques by
+     * @return  {object}                Return self
+     */
     unique(key) {
         key = key || '__hash__';
         let stored = [];
