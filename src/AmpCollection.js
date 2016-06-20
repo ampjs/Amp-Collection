@@ -11,17 +11,18 @@ class AmpCollection {
 
         this.setData = data || [];
         this.processed = [];
-        this.__isProcessed = false;
+        this._isProcessed = false;
 
         return this;
     }
 
     /**
      * Getter for the processed or standard data.
+     * @private
      * @return {Array}     Returns the data
      */
-    get __data() {
-        if(this.__isProcessed) {
+    get _data() {
+        if(this._isProcessed) {
             return this.processed;
         }
 
@@ -31,11 +32,12 @@ class AmpCollection {
     /**
      * Setter for processed data.
      * @param  {Array} processed Items of data that have been ran through a filter.
+     * @private
      * @return {void}            Returns nothing.
      */
-    set __processed(processed) {
+    set _processed(processed) {
         // We're creating a filter so make sure we're aware.
-        this.__isProcessed = true;
+        this._isProcessed = true;
         // Add passed array to processed object.
         this.processed = processed;
     }
@@ -80,19 +82,20 @@ class AmpCollection {
         }
 
         if(this.schemaStrict) {
-            return this.__strictSchema(data);
+            return this._strictSchema(data);
         }
 
-        return this.__nonStrictSchema(data);
+        return this._nonStrictSchema(data);
     }
 
     /**
      * Strictly checks the schema and throws
      * and stop if check doesn't pass.
+     * @private
      * @param  {Array} data Object of data to process
      * @return {Null}       Return nothing
      */
-    __strictSchema(data) {
+    _strictSchema(data) {
         let dataKeys = Object.keys(data).sort();
 
         if(JSON.stringify(dataKeys) !== JSON.stringify(this.schema)) {
@@ -112,10 +115,11 @@ class AmpCollection {
     /**
      * Checks the schema in a non strict fashion
      * and outputs any negative results to console.
+     * @privte
      * @param  {Array} data Object of data to process
      * @return {Object}     Returns the data passed
      */
-    __nonStrictSchema(data) {
+    _nonStrictSchema(data) {
         for(let key = 0; key < this.schema.length; key++) {
             if(!data.hasOwnProperty(this.schema[key])) {
                 console.log(
@@ -133,7 +137,7 @@ class AmpCollection {
      * @returns {Array} The data in the Collection
      */
     all() {
-        return this.__data;
+        return this._data;
     }
 
     /**
@@ -141,7 +145,7 @@ class AmpCollection {
      * @returns {Object} The first item in the Collection
      */
     first() {
-        return this.__data[0];
+        return this._data[0];
     }
 
     /**
@@ -150,11 +154,11 @@ class AmpCollection {
      * @return {Object|Null}     Null if no data found or object defined.
      */
     get(item) {
-        if(typeof this.__data[item] === 'undefined') {
+        if(typeof this._data[item] === 'undefined') {
             return null;
         }
 
-        return this.__data[item];
+        return this._data[item];
     }
 
     /**
@@ -189,7 +193,7 @@ class AmpCollection {
      * @return {Boolean}    Returns boolean
      */
     isEmpty() {
-        let values = this.__data;
+        let values = this._data;
 
         if(values.length > 0) {
             return false;
@@ -205,8 +209,8 @@ class AmpCollection {
      * @return {Object}          Returns self.
      */
     filter(filter) {
-        for(let item = 0; item < this.__data.length; item++) {
-            this.__data[item] = filter(item, this.get(item));
+        for(let item = 0; item < this._data.length; item++) {
+            this._data[item] = filter(item, this.get(item));
         }
 
         return this;
@@ -283,14 +287,14 @@ class AmpCollection {
      * @return {Object}             Return self
      */
     doWhere(processed, key, operator, value) {
-        this.__processed = processed;
+        this._processed = processed;
 
         for(let item = 0; item < this.data.length; item++) {
             if(typeof this.data[item][key] === 'undefined') {
                 return this;
             }
 
-            let where = this.__whereOperators(this.data[item][key], operator, value);
+            let where = this._whereOperators(this.data[item][key], operator, value);
 
             if(where) {
                 this.processed.push(this.data[item]);
@@ -314,12 +318,13 @@ class AmpCollection {
     /**
      * Does the comparison logic based on the given
      * operator.
+     * @private
      * @param  {String} key         Key to seek
      * @param  {String} operator    Operator to be used in comparison
      * @param  {String} value       Value to match
      * @return {Boolean}            Returns whether matches or not.
      */
-    __whereOperators(key, operator, value) {
+    _whereOperators(key, operator, value) {
         switch(operator) {
             default:
             case '=':
@@ -344,7 +349,7 @@ class AmpCollection {
      * @return {Object}        Return self
      */
     except(except) {
-        this.__processed = this.__data;
+        this._processed = this._data;
         let removed = [];
 
         for(let item = 0; item < this.processed.length; item++) {
