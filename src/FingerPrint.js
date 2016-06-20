@@ -1,8 +1,9 @@
+/**
+ * Allows the creation of FingerPrints on an Array
+ * @class
+ * @classdesc Allows the creation of FingerPrints on an Array
+ */
 class FingerPrint {
-    constructor() {
-        
-    }
-
     /**
      * Hash generation based on Java numerical
      * hashCode().
@@ -36,7 +37,7 @@ class FingerPrint {
     createGetter(array) {
         let string = JSON.stringify(array);
 
-        array.__defineGetter__('__hash__', () => {
+        array.__defineGetter__('__FingerPrint__', () => {
             return this.generate(string);
         });
 
@@ -57,13 +58,10 @@ class FingerPrint {
 
         for(let i = 0; i < data.length; i++) {
             data[i] = this.createGetter(data[i]);
+            data[i].FingerPrint = new FingerPrint();
         }
 
         return data;
-    }
-
-    getHashes() {
-        console.log(this);
     }
 }
 

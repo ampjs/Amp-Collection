@@ -1,5 +1,10 @@
 import FingerPrint from './FingerPrint.js';
 
+/**
+ * Allows the creation and search of a given array of data.
+ * @class
+ * @classdesc The core AmpCollection class.
+ */
 class AmpCollection {
     /**
      * Construct the class
@@ -7,10 +12,24 @@ class AmpCollection {
      * @return {Object}            Returns self
      */
     constructor(data) {
+        /**
+         * FingerPrint class allowing the use of
+         * methods for creating item hashes.
+         * @type {Class}
+         */
         this.FingerPrint = new FingerPrint();
 
         this.setData = data || [];
+        /**
+         * Holds all data that has changed with
+         * each query.
+         * @type {Array}
+         */
         this.processed = [];
+        /**
+         * Whether the data has changed/processed.
+         * @type {Boolean}
+         */
         this._isProcessed = false;
 
         return this;
@@ -47,10 +66,15 @@ class AmpCollection {
      * @param {(String|Array)} data Data to be added
      */
     set setData(data) {
+        /**
+         * The data that has been set for the Collection.
+         * @type {Array}
+         */
+        this.data = [];
+
         if(Array.isArray(data)) {
             this.data = data;
         } else {
-            this.data = [];
             this.data.push(data);
         }
 
@@ -64,8 +88,16 @@ class AmpCollection {
      * @returns {Object}                Returns self.
      */
     schema(keys, strict) {
-        this.schema = keys.sort();
-        this.schemaStrict = strict || false;
+        /**
+         * The schema to be used across this Collection.
+         * @type {Array}
+         */
+        this._schema = keys.sort();
+        /**
+         * Whether the schema is set to strict.
+         * @type {Boolean}
+         */
+        this._schemaStrict = strict || false;
 
         return this;
     }
@@ -77,11 +109,11 @@ class AmpCollection {
      * @return {Array}      The data being checked.
      */
     checkSchema(data) {
-        if(!Array.isArray(this.schema)) {
+        if(!Array.isArray(this._schema)) {
             return data;
         }
 
-        if(this.schemaStrict) {
+        if(this._schemaStrict) {
             return this._strictSchema(data);
         }
 
@@ -98,11 +130,11 @@ class AmpCollection {
     _strictSchema(data) {
         let dataKeys = Object.keys(data).sort();
 
-        if(JSON.stringify(dataKeys) !== JSON.stringify(this.schema)) {
+        if(JSON.stringify(dataKeys) !== JSON.stringify(this._schema)) {
             console.log(
                 'Collection:',
                 'Schema in strict mode -- keys do not match. Expecting:',
-                this.schema,
+                this._schema,
                 'given;',
                 dataKeys
             );
@@ -120,11 +152,11 @@ class AmpCollection {
      * @return {Object}     Returns the data passed
      */
     _nonStrictSchema(data) {
-        for(let key = 0; key < this.schema.length; key++) {
-            if(!data.hasOwnProperty(this.schema[key])) {
+        for(let key = 0; key < this._schema.length; key++) {
+            if(!data.hasOwnProperty(this._schema[key])) {
                 console.log(
                     'Collection:',
-                    'key "' + this.schema[key] + '" missing from collection.'
+                    'key "' + this._schema[key] + '" missing from collection.'
                 );
             }
         }
@@ -253,11 +285,11 @@ class AmpCollection {
      * Gets items that are unique in the collection. Uses the item FingerPrint
      * to find and remove duplicates. By using a key you can specify
      * finding duplicates by an alternative match.
-     * @param   {String} key=__hash__   Key to find uniques by
+     * @param   {String} key=__FingerPrint__   Key to find uniques by
      * @return  {object}                Return self
      */
     unique(key) {
-        key = key || '__hash__';
+        key = key || '__FingerPrint__';
         let stored = [];
 
         for(let item = 0; item < this.data.length; item++) {
