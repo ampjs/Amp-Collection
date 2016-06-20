@@ -1,10 +1,6 @@
 var assert = require('assert'),
     chai = require('chai'),
-<<<<<<< HEAD
     AmpCollection = require('../amp-collection.js').default;
-=======
-    ReflectCollection = require('../amp-collection.js').default;
->>>>>>> feature/object-hash
 
 var InitialCollection = new AmpCollection();
 

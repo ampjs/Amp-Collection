@@ -1,8 +1,5 @@
-<<<<<<< HEAD:src/AmpCollection.js
-=======
 import FingerPrint from './FingerPrint.js';
 
->>>>>>> feature/object-hash:src/AmpCollection.js
 class AmpCollection {
     constructor(data) {
         this.FingerPrint = new FingerPrint();
