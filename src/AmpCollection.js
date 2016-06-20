@@ -209,9 +209,10 @@ class AmpCollection {
 
     /**
      * Alias for doWhere to create list of processed items.
-     * @param  {String} key   Key to seek
-     * @param  {String} value Value to match
-     * @return {Object}       Returns result of doWhere
+     * @param  {String} key         Key to seek
+     * @param  {String} operator    Operator to be used in comparison
+     * @param  {String} value       Value to match
+     * @return {Object}             Returns result of doWhere
      */
     where(key, operator, value) {
         if(arguments.length === 2) {
@@ -225,9 +226,10 @@ class AmpCollection {
     /**
      * Alias for doWhere on processed items as an orWhere,
      * similar to SQL queries.
-     * @param  {String} key   Key to seek
-     * @param  {String} value Value to match
-     * @return {Object}       Returns result of doWhere
+     * @param  {String} key         Key to seek
+     * @param  {String} operator    Operator to be used in comparison
+     * @param  {String} value       Value to match
+     * @return {Object}             Returns result of doWhere
      */
     orWhere(key, operator, value) {
         if(arguments.length === 2) {
@@ -269,10 +271,11 @@ class AmpCollection {
     /**
      * Loops through items and builds or extends processed
      * Array with items that match key and value.
-     * @param  {Array}  processed The current processed items
-     * @param  {String} key      Key to seek
-     * @param  {String} value    Value to match
-     * @return {Object}          Return self
+     * @param  {Array}  processed   The current processed items
+     * @param  {String} key         Key to seek
+     * @param  {String} operator    Operator to be used in comparison
+     * @param  {String} value       Value to match
+     * @return {Object}             Return self
      */
     doWhere(processed, key, operator, value) {
         this.__processed = processed;
