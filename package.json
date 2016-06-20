@@ -1,8 +1,15 @@
 {
+<<<<<<< HEAD
   "name": "amp-collection",
   "version": "0.3.1",
   "description": "Amp Collection",
   "main": "amp-collection.js",
+=======
+  "name": "reflect-collection",
+  "version": "0.3.0",
+  "description": "Reflect Collection",
+  "main": "reflect-collection.js",
+>>>>>>> feature/object-hash
   "options": {
     "mocha": "--require scripts/mocha tests/**/*.js"
   },

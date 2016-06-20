@@ -1,8 +1,4 @@
-# Amp Collection
-A simple Javascript-based Collection class based on Laravel 5 Collections.
-<<<<<<< HEAD
-
-## Usage
+# AmpCollection Usage
 #### Creating a Collection
 ```js
 let family = [{
@@ -22,7 +18,7 @@ let family = [{
 	‘email’: ’steven.lamb@family.com’
 }];
 
-let FamilyCollection = new AmpCollection(family);
+let FamilyCollection = new ReflectCollection(family);
 ```
 
 ### Adding an extra object
@@ -147,5 +143,3 @@ Collection: key “email” missing from collection.
 	‘age’: ’89’
 }
 ```
-=======
->>>>>>> feature/object-hash

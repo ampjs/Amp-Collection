@@ -1,6 +1,10 @@
 var assert = require('assert'),
     chai = require('chai'),
+<<<<<<< HEAD
     AmpCollection = require('../amp-collection.js').default;
+=======
+    ReflectCollection = require('../amp-collection.js').default;
+>>>>>>> feature/object-hash
 
 var InitialCollection = new AmpCollection();
 
@@ -14,6 +18,11 @@ var FamilyCollection = new AmpCollection([{
     'surname': 'Lamb',
     'age': 43,
     'email': 'lucy.lamb@family.com'
+}, {
+    'forename': 'Steven',
+    'surname': 'Lamb',
+    'age': 12,
+    'email': 'steven.lamb@family.com'
 }, {
     'forename': 'Steven',
     'surname': 'Lamb',
@@ -42,7 +51,7 @@ describe('AmpCollection Example data', function() {
     describe('Example data', function() {
         it('all() - Should get all three FamilyCollection values', function() {
             chai.expect(FamilyCollection.all()).to.be.an('array');
-            chai.expect(FamilyCollection.all().length).to.equal(3);
+            chai.expect(FamilyCollection.all().length).to.equal(4);
         });
     });
 
@@ -57,7 +66,7 @@ describe('AmpCollection Example data', function() {
 
             chai.expect(Item).to.be.an('object');
             chai.expect(FamilyCollection.all()).to.be.an('array');
-            chai.expect(FamilyCollection.all().length).to.equal(4);
+            chai.expect(FamilyCollection.all().length).to.equal(5);
         });
     });
 
@@ -96,13 +105,13 @@ describe('AmpCollection Example data', function() {
             it('(<) Where age is less than 45', function() {
                 var lessThan = FamilyCollection.where('age', '<', 45).all();
                 chai.expect(lessThan).to.be.an('array');
-                chai.expect(lessThan.length).to.equal(2);
+                chai.expect(lessThan.length).to.equal(3);
             });
 
             it('(<=) Where age is less than or equal to 45', function() {
                 var lessThan = FamilyCollection.where('age', '<=', 45).all();
                 chai.expect(lessThan).to.be.an('array');
-                chai.expect(lessThan.length).to.equal(3);
+                chai.expect(lessThan.length).to.equal(4);
             });
         });
 
@@ -113,6 +122,22 @@ describe('AmpCollection Example data', function() {
                 for(var i in exceptAge) {
                     chai.expect(exceptAge[i].age).to.be.undefined;
                 }
+            });
+        });
+
+        describe('unqiue()', function() {
+            it('Only return unique items', function() {
+                var uniques = FamilyCollection.unique().all();
+
+                chai.expect(uniques).to.be.an('array');
+                chai.expect(uniques.length).to.equal(3);
+            });
+
+            it('Only return unique items matching the \'age\' key', function() {
+                var uniques = FamilyCollection.unique('age').all();
+
+                chai.expect(uniques).to.be.an('array');
+                chai.expect(uniques.length).to.equal(3);
             });
         });
     });
@@ -170,6 +195,22 @@ describe('AmpCollection Example data', function() {
                 chai.expect(consoleValue).to.equal(false);
                 chai.expect(consoleMessage).to.equal("Collection: key \"email\" missing from collection.");
             });
+        });
+    });
+
+    describe('Hash', function() {
+        describe('hash()', function() {
+            it('Should return a hashed value', function() {
+                // Try to overwrite.
+                FamilyCollection.data[0].__hash__ = 'test';
+
+                chai.expect(FamilyCollection.data[0].__hash__).to.be.an('number');
+                chai.expect(FamilyCollection.data[0].__hash__).to.be.above(0);
+                chai.expect(FamilyCollection.data[1].__hash__).to.be.an('number');
+                chai.expect(FamilyCollection.data[1].__hash__).to.be.above(0);
+                chai.expect(FamilyCollection.data[2].__hash__).to.be.an('number');
+                chai.expect(FamilyCollection.data[2].__hash__).to.be.above(0);
+            })
         });
     });
 });
