@@ -172,3 +172,6 @@ Collection: key “email” missing from collection.
 	'age': '89'
 }
 ```
+
+**Strict Schema**
+`.schema()` has a second argument that can be set to `true` or `false` *(default)* for setting strict mode. Strict mode will cause the script to stop and return no data structure does not match with that set in the schema and ignores the optional note above.
