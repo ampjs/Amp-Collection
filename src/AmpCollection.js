@@ -1,8 +1,14 @@
+import FingerPrint from './FingerPrint.js';
+
 class AmpCollection {
     constructor(data) {
+        this.FingerPrint = new FingerPrint();
+
         this.setData = data || [];
         this.processed = [];
         this.__isProcessed = false;
+
+        return this;
     }
 
     /**
@@ -40,6 +46,8 @@ class AmpCollection {
             this.data = [];
             this.data.push(data);
         }
+
+        this.data = this.FingerPrint.addPrints(this.data);
     }
 
     /**
@@ -151,6 +159,7 @@ class AmpCollection {
      */
     addItem(value) {
         this.data.push(this.checkSchema(value));
+        this.data = this.FingerPrint.addPrints(this.data);
 
         return this;
     }
@@ -230,6 +239,34 @@ class AmpCollection {
     }
 
     /**
+     * Gets items that are unique in the collection. Uses the item FingerPrint
+     * to find and remove duplicates. By using a key you can specify
+     * finding duplicates by an alternative match.
+     * @param   {String} key=__hash__   Key to find uniques by
+     * @return  {object}                Return self
+     */
+    unique(key) {
+        key = key || '__hash__';
+        let stored = [];
+
+        for(let item = 0; item < this.data.length; item++) {
+            let value = this.data[item][key];
+
+            // console.log('value ', this.data[item]);
+
+            this.doWhere([], key, '=', value);
+
+            if(this.processed.length === 1) {
+                stored.push(this.processed[0]);
+            }
+        }
+
+        this.processed = stored;
+
+        return this;
+    }
+
+    /**
      * Loops through items and builds or extends processed
      * Array with items that match key and value.
      * @param  {Array}  processed The current processed items
@@ -251,6 +288,12 @@ class AmpCollection {
                 this.processed.push(this.data[item]);
             }
         }
+
+        return this;
+    }
+
+    reset() {
+        this.processed = this.data;
 
         return this;
     }
@@ -281,16 +324,21 @@ class AmpCollection {
      */
     except(except) {
         this.__processed = this.__data;
+        let removed = [];
 
         for(let item = 0; item < this.processed.length; item++) {
-            for(let eitem = 0; eitem < except.length; eitem++) {
-                let key = except[eitem];
+            let items = this.processed[item];
 
-                if(typeof this.processed[item][key] !== 'undefined') {
-                    delete this.processed[item][key];
+            removed[item] = {};
+
+            for(let name in items) {
+                if(except.indexOf(name) === -1) {
+                    removed[item][name] = items[name];
                 }
             }
         }
+
+        this.processed = removed;
 
         return this;
     }
