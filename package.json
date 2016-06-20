@@ -1,13 +1,14 @@
 {
   "name": "amp-collection",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Amp Collection",
   "main": "amp-collection.js",
   "options": {
     "mocha": "--require scripts/mocha tests/**/*.js"
   },
   "scripts": {
-    "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
+    "test": "node_modules/.bin/mocha",
+    "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib; npm run test",
     "lint": "eslint src/*"
   },
   "babel": {
