@@ -16,6 +16,7 @@ Collection: key "email" missing from collection.
      - [add() should throw console.log messages](#ampcollection-schema-add-should-throw-consolelog-messages)
    - [AmpCollection FingerPrint hashing](#ampcollection-fingerprint-hashing)
      - [hash()](#ampcollection-fingerprint-hashing-hash)
+   - [PaginatedCollection Initial](#paginatedcollection-initial)
 <a name=""></a>
  
 <a name="ampcollection-initial"></a>
@@ -233,7 +234,7 @@ FamilyCollection.data[0].__FingerPrint__ = 'test';
 chai.expect(FamilyCollection.data[0].__FingerPrint__).to.not.equal('test');
 ```
 
-__FinterPrint__ should should be a hashed value.
+__FingerPrint__ should should be a hashed value.
 
 ```js
 chai.expect(FamilyCollection.data[0].__FingerPrint__).to.be.an('number');
@@ -244,4 +245,14 @@ chai.expect(FamilyCollection.data[2].__FingerPrint__).to.be.an('number');
 chai.expect(FamilyCollection.data[2].__FingerPrint__).to.be.above(0);
 ```
 
-1466524559000
+<a name="paginatedcollection-initial"></a>
+# PaginatedCollection Initial
+PaginatedCollection indirectly inherits AmpCollection.
+
+```js
+var isInstance = (PaginatedCollection.prototype instanceof AmpCollection);
+chai.expect(isInstance).to.be.an('boolean');
+chai.expect(isInstance).to.equal(true);
+```
+
+1466525655000

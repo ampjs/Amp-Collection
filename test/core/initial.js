@@ -1,6 +1,6 @@
 var assert = require('assert'),
     chai = require('chai'),
-    { AmpCollection } = require('../amp-collection.js');
+    { AmpCollection } = require('../../amp-collection.js');
 
 var InitialCollection = new AmpCollection();
 
