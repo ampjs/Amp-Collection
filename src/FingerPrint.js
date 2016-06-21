@@ -58,7 +58,6 @@ class FingerPrint {
 
         for(let i = 0; i < data.length; i++) {
             data[i] = this.createGetter(data[i]);
-            data[i].FingerPrint = new FingerPrint();
         }
 
         return data;
