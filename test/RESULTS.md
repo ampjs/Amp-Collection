@@ -17,6 +17,7 @@ Collection: key "email" missing from collection.
    - [AmpCollection FingerPrint hashing](#ampcollection-fingerprint-hashing)
      - [hash()](#ampcollection-fingerprint-hashing-hash)
    - [PaginatedCollection Initial](#paginatedcollection-initial)
+   - [PaginatedCollection page](#paginatedcollection-page)
 <a name=""></a>
  
 <a name="ampcollection-initial"></a>
@@ -262,4 +263,22 @@ chai.expect(InitialCollection.all()).to.be.an('array');
 chai.expect(InitialCollection.all().length).to.equal(3);
 ```
 
-1466528041000
+<a name="paginatedcollection-page"></a>
+# PaginatedCollection page
+paginate() chunks the data into twos..
+
+```js
+PaginatedCollection.paginate(2);
+chai.expect(PaginatedCollection.all()).to.be.an('array');
+chai.expect(PaginatedCollection.all().length).to.equal(2);
+```
+
+Can get the second page..
+
+```js
+PaginatedCollection.paginate(2).page(2);
+chai.expect(PaginatedCollection.all()).to.be.an('array');
+chai.expect(PaginatedCollection.all().length).to.equal(2);
+```
+
+1466534024000
