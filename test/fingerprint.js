@@ -35,7 +35,7 @@ describe('AmpCollection FingerPrint hashing', function() {
             chai.expect(FamilyCollection.data[0].__FingerPrint__).to.not.equal('test');
         });
 
-        it('__FinterPrint__ should should be a hashed value', function() {
+        it('__FingerPrint__ should should be a hashed value', function() {
             chai.expect(FamilyCollection.data[0].__FingerPrint__).to.be.an('number');
             chai.expect(FamilyCollection.data[0].__FingerPrint__).to.be.above(0);
             chai.expect(FamilyCollection.data[1].__FingerPrint__).to.be.an('number');
