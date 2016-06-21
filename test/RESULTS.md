@@ -255,4 +255,11 @@ chai.expect(isInstance).to.be.an('boolean');
 chai.expect(isInstance).to.equal(true);
 ```
 
-1466526116000
+PaginatedCollection can add data as AmpCollection would..
+
+```js
+chai.expect(InitialCollection.all()).to.be.an('array');
+chai.expect(InitialCollection.all().length).to.equal(3);
+```
+
+1466528041000
