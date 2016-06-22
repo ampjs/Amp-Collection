@@ -15,11 +15,19 @@ class PaginatedCollection extends AmpCollection {
     paginate(size) {
         let sets = [];
 
-        let chunks = this._data.length / size;
+        let chunks = this.data.length / size;
 
         for(let i = 0, c = 0; i < chunks; i++, c += size) {
-            sets[i] = this._data.slice(c, c + size);
+            sets[i] = this.data.slice(c, c + size);
         }
+
+        this.pages = {
+            current: 1,
+            next: 2,
+            previous: 1,
+            last: sets.length,
+            chunks: size
+        };
 
         this._processed = sets;
 
@@ -29,7 +37,23 @@ class PaginatedCollection extends AmpCollection {
     page(page) {
         page = page || 1;
 
-        this._processed = this._data[0][page-1];
+        let pageReference = page-1;
+        let nextPage = page+1;
+        let previousPage = page-1;
+
+        if(pageReference > this.pages.last) {
+            nextPage = this.pages.last;
+        }
+
+        if(pageReference < 0) {
+            previousPage = 0;
+        }
+
+        this.pages.current = page;
+        this.pages.next = nextPage;
+        this.pages.previous = previousPage;
+
+        this._processed = this._data[page-1];
 
         return this;
     }
