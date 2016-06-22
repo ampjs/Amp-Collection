@@ -24,9 +24,14 @@ var CollectionData = [{
     'email': 'joseph.pearson@family.com'
 }];
 
-var PaginatedCollection = new PaginatedCollection(CollectionData);
+var PaginatedCollection = new PaginatedCollection(CollectionData, 1);
 
 describe('PaginatedCollection page', function() {
+    it('Set the PaginateCollection size into chunks of 1.', function() {
+        chai.expect(PaginatedCollection.all()).to.be.an('array');
+        chai.expect(PaginatedCollection.all().length).to.equal(4);
+    });
+
     it('paginate() chunks the data into twos.', function() {
         PaginatedCollection.paginate(2);
 

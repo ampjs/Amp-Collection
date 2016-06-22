@@ -1,8 +1,14 @@
 import AmpCollection from './AmpCollection.js';
 
 class PaginatedCollection extends AmpCollection {
-    constructor(data) {
+    constructor(data, size) {
         super(data);
+
+        size = size || false;
+
+        if(size) {
+            this.paginate(size);
+        }
     }
 
     paginate(size) {
