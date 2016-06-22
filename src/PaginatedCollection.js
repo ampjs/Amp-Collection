@@ -34,9 +34,7 @@ class PaginatedCollection extends AmpCollection {
         return this;
     }
 
-    page(page) {
-        page = page || 1;
-
+    _getPage(page) {
         let pageReference = page-1;
         let nextPage = page+1;
         let previousPage = page-1;
@@ -54,53 +52,21 @@ class PaginatedCollection extends AmpCollection {
         this.pages.previous = previousPage;
 
         this._processed = this._data[page-1];
+    }
 
+    page(page) {
+        page = page || 1;
+        this._getPage(page);
         return this;
     }
 
     next() {
-        let page = this.pages.next;
-        let pageReference = page-1;
-        let nextPage = page+1;
-        let previousPage = page-1;
-
-        if(page >= this.pages.last) {
-            nextPage = this.pages.last;
-        }
-
-        if(page <= 1) {
-            previousPage = 1;
-        }
-
-        this.pages.current = page;
-        this.pages.next = nextPage;
-        this.pages.previous = previousPage;
-
-        this._processed = this._data[page-1];
-
+        this._getPage(this.pages.next);
         return this;
     }
 
     previous() {
-        let page = this.pages.previous;
-        let pageReference = page-1;
-        let nextPage = page+1;
-        let previousPage = page-1;
-
-        if(page >= this.pages.last) {
-            nextPage = this.pages.last;
-        }
-
-        if(page <= 1) {
-            previousPage = 1;
-        }
-
-        this.pages.current = page;
-        this.pages.next = nextPage;
-        this.pages.previous = previousPage;
-
-        this._processed = this._data[page-1];
-
+        this._getPage(this.pages.previous);
         return this;
     }
 }
