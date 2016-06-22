@@ -19,6 +19,7 @@ class AmpCollection {
          */
         this.FingerPrint = new FingerPrint();
 
+        this.data = [];
         this.setData = data || [];
         /**
          * Holds all data that has changed with
