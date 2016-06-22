@@ -9,9 +9,10 @@
   },
   "scripts": {
     "mocha": "node_modules/.bin/mocha --growl test/tests.js",
-    "mocha:save": "node_modules/.bin/mocha --reporter markdown test/tests.js > test/RESULTS.md; echo $(($(date +'%s * 1000 + %-N / 1000000'))) >> test/RESULTS.md",
+    "mocha:report": "node_modules/.bin/mocha --reporter markdown test/tests.js > test/RESULTS.md; echo $(($(date +'%s * 1000 + %-N / 1000000'))) >> test/RESULTS.md",
     "compile": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
-    "prepublish": "npm run compile; npm run mocha; npm run mocha:save",
+    "devbuild": "npm run compile; npm run mocha",
+    "prepublish": "npm run compile; npm run mocha; npm run mocha:report",
     "lint": "eslint src/*"
   },
   "babel": {
