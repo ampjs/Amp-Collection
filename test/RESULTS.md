@@ -17,8 +17,12 @@ Collection: key "email" missing from collection.
    - [AmpCollection FingerPrint hashing](#ampcollection-fingerprint-hashing)
      - [hash()](#ampcollection-fingerprint-hashing-hash)
    - [PaginatedCollection Initial](#paginatedcollection-initial)
-   - [PaginatedCollection page](#paginatedcollection-page)
-<a name=""></a>
+   - [PaginatedCollection pages](#paginatedcollection-pages)
+     - [paginate()](#paginatedcollection-pages-paginate)
+     - [page()](#paginatedcollection-pages-page)
+       - [{pages}](#paginatedcollection-pages-page-pages)
+     - [next()](#paginatedcollection-pages-next)
+     - [previous()](#paginatedcollection-pages-previous)
  
 <a name="ampcollection-initial"></a>
 # AmpCollection Initial
@@ -263,8 +267,17 @@ chai.expect(InitialCollection.all()).to.be.an('array');
 chai.expect(InitialCollection.all().length).to.equal(3);
 ```
 
-<a name="paginatedcollection-page"></a>
-# PaginatedCollection page
+<a name="paginatedcollection-pages"></a>
+# PaginatedCollection pages
+<a name="paginatedcollection-pages-paginate"></a>
+## paginate()
+Set the PaginateCollection size into chunks of 1..
+
+```js
+chai.expect(PaginatedCollection.all()).to.be.an('array');
+chai.expect(PaginatedCollection.all().length).to.equal(4);
+```
+
 paginate() chunks the data into twos..
 
 ```js
@@ -273,6 +286,24 @@ chai.expect(PaginatedCollection.all()).to.be.an('array');
 chai.expect(PaginatedCollection.all().length).to.equal(2);
 ```
 
+paginate() to have a default of 5..
+
+```js
+PaginatedCollection.paginate(0);
+chai.expect(PaginatedCollection.all()).to.be.an('array');
+chai.expect(PaginatedCollection.all().length).to.equal(1);
+```
+
+paginate() accepts strings..
+
+```js
+PaginatedCollection.paginate('2');
+chai.expect(PaginatedCollection.all()).to.be.an('array');
+chai.expect(PaginatedCollection.all().length).to.equal(2);
+```
+
+<a name="paginatedcollection-pages-page"></a>
+## page()
 Can get the second page..
 
 ```js
@@ -281,4 +312,98 @@ chai.expect(PaginatedCollection.all()).to.be.an('array');
 chai.expect(PaginatedCollection.all().length).to.equal(2);
 ```
 
-1466534024000
+<a name="paginatedcollection-pages-page-pages"></a>
+### {pages}
+{pages} object exists..
+
+```js
+PaginatedCollection.paginate(2);
+chai.expect(PaginatedCollection.pages).to.be.an('object');
+chai.expect(PaginatedCollection.pages.current).to.be.a('number');
+chai.expect(PaginatedCollection.pages.next).to.be.a('number');
+chai.expect(PaginatedCollection.pages.previous).to.be.a('number');
+chai.expect(PaginatedCollection.pages.last).to.be.a('number');
+chai.expect(PaginatedCollection.pages.chunks).to.be.a('number');
+```
+
+{pages} is set when getting second page of chunks of 1..
+
+```js
+// Split into chunks of 1 for testing next.
+PaginatedCollection.paginate(1).page(2);
+chai.expect(PaginatedCollection.pages.current).to.be.a('number');
+chai.expect(PaginatedCollection.pages.current).to.equal(2);
+chai.expect(PaginatedCollection.pages.next).to.be.a('number');
+chai.expect(PaginatedCollection.pages.next).to.equal(3);
+chai.expect(PaginatedCollection.pages.previous).to.be.a('number');
+chai.expect(PaginatedCollection.pages.previous).to.equal(1);
+```
+
+{pages.next} isn't greater than allowed..
+
+```js
+// Split into chunks of 1 for testing next.
+PaginatedCollection.paginate(1);
+chai.expect(PaginatedCollection.pages.next).to.be.a('number');
+chai.expect(PaginatedCollection.pages.next).to.not.equal(5);
+```
+
+{pages.next} isn't lower than allowed..
+
+```js
+// Split into chunks of 1 for testing next.
+PaginatedCollection.paginate(1).page(0);
+chai.expect(PaginatedCollection.pages.current).to.be.a('number');
+chai.expect(PaginatedCollection.pages.current).to.equal(1);
+chai.expect(PaginatedCollection.pages.next).to.be.a('number');
+chai.expect(PaginatedCollection.pages.next).to.equal(2);
+chai.expect(PaginatedCollection.pages.next).to.not.equal(0);
+```
+
+<a name="paginatedcollection-pages-next"></a>
+## next()
+{pages.next} is greater..
+
+```js
+var thePage = PaginatedCollection.paginate(1).page(2);
+chai.expect(thePage.pages.next).to.be.a('number');
+chai.expect(thePage.pages.next).to.equal(3);
+thePage.next();
+chai.expect(thePage.pages.next).to.be.a('number');
+chai.expect(thePage.pages.next).to.equal(4);
+```
+
+{pages.next} is doesn't exceed {pages.last}..
+
+```js
+var thePage = PaginatedCollection.paginate(1).page(4);
+chai.expect(thePage.pages.next).to.be.a('number');
+chai.expect(thePage.pages.next).to.equal(4);
+thePage.next();
+chai.expect(thePage.pages.next).to.not.equal(5);
+```
+
+<a name="paginatedcollection-pages-previous"></a>
+## previous()
+{pages.previous} is lower..
+
+```js
+var thePage = PaginatedCollection.paginate(1).page(3);
+chai.expect(thePage.pages.previous).to.be.a('number');
+chai.expect(thePage.pages.previous).to.equal(2);
+thePage.previous();
+chai.expect(thePage.pages.previous).to.be.a('number');
+chai.expect(thePage.pages.previous).to.equal(1);
+```
+
+{pages.previous} is doesn't go below 1..
+
+```js
+var thePage = PaginatedCollection.paginate(1).page(2);
+chai.expect(thePage.pages.previous).to.be.a('number');
+chai.expect(thePage.pages.previous).to.equal(1);
+thePage.previous();
+chai.expect(thePage.pages.previous).to.not.equal(0);
+```
+
+1466624994000
