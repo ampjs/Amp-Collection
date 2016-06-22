@@ -45,4 +45,13 @@ describe('PaginatedCollection page', function() {
         chai.expect(PaginatedCollection.all()).to.be.an('array');
         chai.expect(PaginatedCollection.all().length).to.equal(2);
     });
+
+    it('{pages} object exists.', function() {
+        PaginatedCollection.paginate(2).page(2);
+
+        chai.expect(PaginatedCollection.pages).to.be.an('object');
+        chai.expect(PaginatedCollection.pages.current).to.be.a('number');
+        chai.expect(PaginatedCollection.pages.next).to.be.a('number');
+        chai.expect(PaginatedCollection.pages.previous).to.be.a('number');
+    });
 });

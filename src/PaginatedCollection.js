@@ -5,6 +5,7 @@ class PaginatedCollection extends AmpCollection {
         super(data);
 
         size = size || false;
+        this.pages = {};
 
         if(size) {
             this.paginate(size);
