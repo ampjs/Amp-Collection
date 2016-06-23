@@ -36,17 +36,16 @@ describe('AmpCollection schema', function() {
         });
     });
 
-    describe('add() should throw console.log messages', function() {
-        it('Should be missing key message', function() {
+    describe('add() should throw errors', function() {
+        it('Should be missing key warning', function() {
             var consoleValue,
                 consoleMessage;
 
             (function(){
-                var log = console.log;
-                console.log = function (message) {
+                var log = console.warn;
+                console.warn = function (message) {
                     consoleValue = false;
                     consoleMessage = arguments[0] + " " + arguments[1];
-                    log.apply(message, arguments);
                 };
             })();
 
@@ -58,6 +57,18 @@ describe('AmpCollection schema', function() {
 
             chai.expect(consoleValue).to.equal(false);
             chai.expect(consoleMessage).to.equal("Collection: key \"email\" missing from collection.");
+        });
+
+        it('Strict mode should throw an error.', function() {
+            var schemaValues = FamilyCollection.schema(['forename', 'surname', 'age', 'email'], true);
+
+            chai.expect(function() {
+                schemaValues.addItem({
+                    'forename': 'Florance',
+                    'surname': 'Pearson',
+                    'age': 89
+                });
+            }).to.throw("Collection: Schema in strict mode -- keys do not match. Expecting: age,email,forename,surname - given; age,forename,surname");
         });
     });
 });

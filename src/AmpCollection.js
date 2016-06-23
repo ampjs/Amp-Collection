@@ -136,14 +136,9 @@ class AmpCollection {
         let dataKeys = Object.keys(data).sort();
 
         if(JSON.stringify(dataKeys) !== JSON.stringify(this._schema)) {
-            console.log(
-                'Collection:',
-                'Schema in strict mode -- keys do not match. Expecting:',
-                this._schema,
-                'given;',
-                dataKeys
-            );
-            window.stop();
+            throw 'Collection: '
+                + 'Schema in strict mode -- keys do not match. Expecting: ' + this._schema + ' - '
+                + 'given; ' + dataKeys;
         }
 
         return data;
@@ -159,7 +154,7 @@ class AmpCollection {
     _nonStrictSchema(data) {
         for(let key = 0; key < this._schema.length; key++) {
             if(!data.hasOwnProperty(this._schema[key])) {
-                console.log(
+                console.warn(
                     'Collection:',
                     'key "' + this._schema[key] + '" missing from collection.'
                 );
