@@ -19,6 +19,10 @@ class AmpCollection {
          */
         this.FingerPrint = new FingerPrint();
 
+        /**
+         * Set the inital value of the data.
+         * @type {Array}
+         */
         this.data = [];
         this.setData = data || [];
         /**
