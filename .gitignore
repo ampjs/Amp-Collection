@@ -1,3 +1,5 @@
 documentation/*
 node_modules/*
 .DS_Store
+
+test/RESULTS.md
