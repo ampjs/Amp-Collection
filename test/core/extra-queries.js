@@ -37,7 +37,7 @@ describe('AmpCollection Extra Queries', function() {
         });
     });
 
-    describe('unqiue()', function() {
+    describe('unique()', function() {
         it('Only return unique items', function() {
             var uniques = FamilyCollection.unique().all();
 
