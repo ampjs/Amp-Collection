@@ -1,4 +1,5 @@
 class Schema {
+
     /**
      * Create the schema for the current Collection.
      * @param {Array}   keys            A list of keys to match
@@ -6,11 +7,13 @@ class Schema {
      * @returns {Object}                Returns self.
      */
     schema(keys, strict) {
+
         /**
          * The schema to be used across this Collection.
          * @type {Array}
          */
         this._schema = keys.sort();
+
         /**
          * Whether the schema is set to strict.
          * @type {Boolean}
@@ -49,9 +52,8 @@ class Schema {
         let dataKeys = Object.keys(data).sort();
 
         if(JSON.stringify(dataKeys) !== JSON.stringify(this._schema)) {
-            throw 'Collection: '
-                + 'Schema in strict mode -- keys do not match. Expecting: ' + this._schema + ' - '
-                + 'given; ' + dataKeys;
+            throw new Error('Collection: Schema in strict mode -- keys do not match.' +
+                `Expecting: ${this._schema} - given; ${dataKeys}`);
         }
 
         return data;
@@ -69,7 +71,7 @@ class Schema {
             if(!data.hasOwnProperty(this._schema[key])) {
                 console.warn(
                     'Collection:',
-                    'key "' + this._schema[key] + '" missing from collection.'
+                    `key "${this._schema[key]}" missing from collection.`
                 );
             }
         }

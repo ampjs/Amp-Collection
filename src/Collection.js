@@ -1,9 +1,9 @@
-import { Implements } from '@ampersarnie/implements';
-import Where from './Where.js';
-import Helpers from './Helpers.js';
-import Schema from './Schema.js';
 import Filters from './Filters.js';
 import FingerPrint from './FingerPrint.js';
+import Helpers from './Helpers.js';
+import {Implements} from '@ampersarnie/implements';
+import Schema from './Schema.js';
+import Where from './Where.js';
 
 /**
  * Allows the creation and search of a given array of data.
@@ -11,6 +11,7 @@ import FingerPrint from './FingerPrint.js';
  * @classdesc The core Collection class.
  */
 class Collection {
+
     /**
      * Construct the class
      * @param  {Array}  data=[]    The given data to add to a collection.
@@ -31,12 +32,14 @@ class Collection {
          */
         this.data = [];
         this.setData = data || [];
+
         /**
          * Holds all data that has changed with
          * each query.
          * @type {Array}
          */
         this.processed = [];
+
         /**
          * Whether the data has changed/processed.
          * @type {Boolean}
@@ -81,6 +84,7 @@ class Collection {
      * @param {(String|Array)} data Data to be added
      */
     set setData(data) {
+
         /**
          * The data that has been set for the Collection.
          * @type {Array}

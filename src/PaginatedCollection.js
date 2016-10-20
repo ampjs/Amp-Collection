@@ -1,4 +1,5 @@
 import Collection from './Collection.js';
+
 /**
  * Extends on Collection and allows for pagination
  * of the data to be used.
@@ -6,6 +7,7 @@ import Collection from './Collection.js';
  * @classdesc Pagination class for Collection
  */
 class PaginatedCollection extends Collection {
+
     /**
      * Construct the class
      * @param  {Array}      data        The given data to add to a collection.
@@ -15,7 +17,8 @@ class PaginatedCollection extends Collection {
     constructor(data, size) {
         super(data);
 
-        size = size || false;
+        let chunks = size || false;
+
         /**
          * Holds information reguarding to
          * the position of the currently
@@ -24,8 +27,8 @@ class PaginatedCollection extends Collection {
          */
         this.pages = {};
 
-        if(size) {
-            this.paginate(size);
+        if(chunks) {
+            this.paginate(chunks);
         }
     }
 
@@ -35,11 +38,12 @@ class PaginatedCollection extends Collection {
      * @return {Object}         Returns self.
      */
     paginate(size) {
-        size = size || 5;
-        let sets = [];
-        let chunks = this.data.length / size;
+        let chunks = size || 5,
+            sets = [];
 
-        for(let i = 0, c = 0; i < chunks; i++, c += size) {
+        chunks = this.data.length / chunks;
+
+        for(let c = 0, i = 0; i < chunks; i += 1, c += size) {
             sets[i] = this.data.slice(c, c + size);
         }
 
@@ -77,9 +81,9 @@ class PaginatedCollection extends Collection {
      * @return {Object}              Returns self.
      */
     _getPage(page) {
-        let pageReference = page-1;
-        let nextPage = page+1;
-        let previousPage = page-1;
+        let nextPage = page + 1,
+            // pageReference = page - 1,
+            previousPage = page - 1;
 
         if(page >= this.pages.last) {
             nextPage = this.pages.last;
@@ -89,11 +93,22 @@ class PaginatedCollection extends Collection {
             previousPage = 1;
         }
 
+        this._setPages(page, nextPage, previousPage);
+
+        this._processed = this._data[page - 1];
+    }
+
+    /**
+     * Sets the page object.
+     * @param {Integer|Number}  page            The current page
+     * @param {Integer|Number}  nextPage        The next page
+     * @param {Integer|Number}  previousPage    The previous page
+     * @return {void}
+     */
+    _setPages(page, nextPage, previousPage) {
         this.pages.current = page;
         this.pages.next = nextPage;
         this.pages.previous = previousPage;
-
-        this._processed = this._data[page-1];
     }
 
     /**
@@ -102,8 +117,10 @@ class PaginatedCollection extends Collection {
      * @return {Object}                Returns self.
      */
     page(page) {
-        page = page || 1;
-        this._getPage(page);
+        let getPage = page || 1;
+
+        this._getPage(getPage);
+
         return this;
     }
 
@@ -114,6 +131,7 @@ class PaginatedCollection extends Collection {
      */
     next() {
         this._getPage(this.pages.next);
+
         return this;
     }
 
@@ -124,6 +142,7 @@ class PaginatedCollection extends Collection {
      */
     previous() {
         this._getPage(this.pages.previous);
+
         return this;
     }
 }

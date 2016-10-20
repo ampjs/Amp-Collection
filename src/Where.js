@@ -1,4 +1,5 @@
 class Where {
+
     /**
      * Alias for doWhere to create list of processed items.
      * @param  {String} key         Key to seek
@@ -8,8 +9,8 @@ class Where {
      */
     where(key, operator, value) {
         if(arguments.length === 2) {
-            value       = operator
-            operator    = '=';
+            value = operator;
+            operator = '=';
         }
 
         return this.doWhere([], key, operator, value);
@@ -25,8 +26,8 @@ class Where {
      */
     orWhere(key, operator, value) {
         if(arguments.length === 2) {
-            value       = operator
-            operator    = '=';
+            value = operator;
+            operator = '=';
         }
 
         return this.doWhere(this.processed, key, operator, value);

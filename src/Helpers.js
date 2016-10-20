@@ -1,4 +1,5 @@
 class Helpers {
+
     /**
      * Checks if Collection has a matching key.
      * @param  {String}  key Key to seek

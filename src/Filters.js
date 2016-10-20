@@ -22,13 +22,13 @@ class Filters {
      * @return  {object}                Return self
      */
     unique(key) {
-        key = key || '__FingerPrint__';
-        let stored = [];
+        let stored = [],
+            uniqueKey = key || '__FingerPrint__';
 
         for(let item = 0; item < this.data.length; item++) {
-            let value = this.data[item][key];
+            let value = this.data[item][uniqueKey];
 
-            this.doWhere([], key, '=', value);
+            this.doWhere([], uniqueKey, '=', value);
 
             if(this.processed.length === 1) {
                 stored.push(this.processed[0]);
