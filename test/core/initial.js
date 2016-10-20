@@ -1,10 +1,10 @@
 var assert = require('assert'),
     chai = require('chai'),
-    { AmpCollection } = require('../../amp-collection.js');
+    { Collection } = require('../../collection.js');
 
-var InitialCollection = new AmpCollection();
+var InitialCollection = new Collection();
 
-describe('AmpCollection Initial', function() {
+describe('Collection Initial', function() {
     it('data should be an empty array', function() {
         chai.expect(InitialCollection).to.be.an('object');
         chai.expect(InitialCollection.data.length).to.equal(0);

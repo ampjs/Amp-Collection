@@ -1,6 +1,6 @@
 var assert = require('assert'),
     chai = require('chai'),
-    { AmpCollection } = require('../../amp-collection.js');
+    { Collection } = require('../../collection.js');
 
 var CollectionData = [{
     'forename': 'Mary',
@@ -19,9 +19,9 @@ var CollectionData = [{
     'email': 'steven.lamb@family.com'
 }];
 
-var FamilyCollection = new AmpCollection(CollectionData);
+var FamilyCollection = new Collection(CollectionData);
 
-describe('AmpCollection schema', function() {
+describe('Collection schema', function() {
     var schemaValues = FamilyCollection.schema(['forename', 'surname', 'age', 'email']);
 
     describe('schema() - Should return (this).', function() {

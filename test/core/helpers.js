@@ -1,6 +1,6 @@
 var assert = require('assert'),
     chai = require('chai'),
-    { AmpCollection } = require('../../amp-collection.js');
+    { Collection } = require('../../collection.js');
 
 var CollectionData = [{
     'forename': 'Mary',
@@ -19,9 +19,9 @@ var CollectionData = [{
     'email': 'steven.lamb@family.com'
 }];
 
-var FamilyCollection = new AmpCollection(CollectionData);
+var FamilyCollection = new Collection(CollectionData);
 
-describe('AmpCollection Helpers', function() {
+describe('Collection Helpers', function() {
     it('has() - Should not have a key of "shoesize" and return false.', function() {
         var keyExists = FamilyCollection.has('showsize');
 

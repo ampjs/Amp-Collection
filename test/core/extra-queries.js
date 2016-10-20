@@ -1,6 +1,6 @@
 var assert = require('assert'),
     chai = require('chai'),
-    { AmpCollection } = require('../../amp-collection.js');
+    { Collection } = require('../../collection.js');
 
 var CollectionData = [{
     'forename': 'Mary',
@@ -24,9 +24,9 @@ var CollectionData = [{
     'email': 'steven.lamb@family.com'
 }];
 
-var FamilyCollection = new AmpCollection(CollectionData);
+var FamilyCollection = new Collection(CollectionData);
 
-describe('AmpCollection Extra Queries', function() {
+describe('Collection Extra Queries', function() {
     describe('except()', function() {
         it('"age" of each item should be undefined', function() {
             var exceptAge = FamilyCollection.except(['age']).all();

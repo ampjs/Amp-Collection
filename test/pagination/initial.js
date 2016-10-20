@@ -1,6 +1,6 @@
 var assert = require('assert'),
     chai = require('chai'),
-    { AmpCollection, PaginatedCollection } = require('../../amp-collection.js');
+    { Collection, PaginatedCollection } = require('../../collection.js');
 
 var CollectionData = [{
     'forename': 'Mary',
@@ -22,14 +22,14 @@ var CollectionData = [{
 var InitialCollection = new PaginatedCollection(CollectionData);
 
 describe('PaginatedCollection Initial', function() {
-    it('PaginatedCollection indirectly inherits AmpCollection', function() {
-        var isInstance = (PaginatedCollection.prototype instanceof AmpCollection);
+    it('PaginatedCollection indirectly inherits Collection', function() {
+        var isInstance = (PaginatedCollection.prototype instanceof Collection);
 
         chai.expect(isInstance).to.be.an('boolean');
         chai.expect(isInstance).to.equal(true);
     });
 
-    it('PaginatedCollection can add data as AmpCollection would.', function() {
+    it('PaginatedCollection can add data as Collection would.', function() {
         chai.expect(InitialCollection.all()).to.be.an('array');
         chai.expect(InitialCollection.all().length).to.equal(3);
     });

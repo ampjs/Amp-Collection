@@ -1,6 +1,6 @@
 var assert = require('assert'),
     chai = require('chai'),
-    { AmpCollection, PaginatedCollection } = require('../../amp-collection.js');
+    { Collection, PaginatedCollection } = require('../../collection.js');
 
 var CollectionData = [{
     'forename': 'Mary',

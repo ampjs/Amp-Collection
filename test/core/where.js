@@ -1,6 +1,6 @@
 var assert = require('assert'),
     chai = require('chai'),
-    { AmpCollection } = require('../../amp-collection.js');
+    { Collection } = require('../../collection.js');
 
 var CollectionData = [{
     'forename': 'Mary',
@@ -24,9 +24,9 @@ var CollectionData = [{
     'email': 'joseph.pearson@family.com'
 }];
 
-var FamilyCollection = new AmpCollection(CollectionData);
+var FamilyCollection = new Collection(CollectionData);
 
-describe('AmpCollection where.', function() {
+describe('Collection where.', function() {
     describe('where() and orWhere()', function() {
         it('Where forename is equal to Lucy', function() {
             var Where = FamilyCollection.where('forename', 'Lucy').all();

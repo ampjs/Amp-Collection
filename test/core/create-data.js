@@ -1,6 +1,6 @@
 var assert = require('assert'),
     chai = require('chai'),
-    { AmpCollection } = require('../../amp-collection.js');
+    { Collection } = require('../../collection.js');
 
 var CollectionData = [{
     'forename': 'Mary',
@@ -19,9 +19,9 @@ var CollectionData = [{
     'email': 'steven.lamb@family.com'
 }];
 
-var FamilyCollection = new AmpCollection(CollectionData);
+var FamilyCollection = new Collection(CollectionData);
 
-describe('AmpCollection create data', function() {
+describe('Collection create data', function() {
     describe('Example data', function() {
         it('all() - Should get all three FamilyCollection values', function() {
             chai.expect(FamilyCollection.all()).to.be.an('array');

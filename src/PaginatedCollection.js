@@ -1,11 +1,11 @@
-import AmpCollection from './AmpCollection.js';
+import Collection from './Collection.js';
 /**
- * Extends on AmpCollection and allows for pagination
+ * Extends on Collection and allows for pagination
  * of the data to be used.
  * @class
- * @classdesc Pagination class for AmpCollection
+ * @classdesc Pagination class for Collection
  */
-class PaginatedCollection extends AmpCollection {
+class PaginatedCollection extends Collection {
     /**
      * Construct the class
      * @param  {Array}      data        The given data to add to a collection.
@@ -58,7 +58,7 @@ class PaginatedCollection extends AmpCollection {
         /**
          * Sets the processed data to the
          * newly chunked array. _processed
-         * is handled by AmpCollection.
+         * is handled by Collection.
          * @type {Array}
          */
         this._processed = sets;

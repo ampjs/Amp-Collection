@@ -8,9 +8,9 @@ import FingerPrint from './FingerPrint.js';
 /**
  * Allows the creation and search of a given array of data.
  * @class
- * @classdesc The core AmpCollection class.
+ * @classdesc The core Collection class.
  */
-class AmpCollection {
+class Collection {
     /**
      * Construct the class
      * @param  {Array}  data=[]    The given data to add to a collection.
@@ -149,4 +149,4 @@ class AmpCollection {
     }
 }
 
-export default new Implements(AmpCollection);
+export default new Implements(Collection);
