@@ -37,14 +37,13 @@ FamilyCollection.addItem({
 FamilyCollection.where('forename', 'Lucy').orWhere('surname', 'Pearson').all();
 ```
 
-
 **Result**
 ```
 [{
-	'forename': 'Mary',
+	'forename': 'Lucy',
 	'surname': 'Lamb',
-	'age': '45',
-	'email': 'mary.lamb@family.com'
+	'age': '43',
+	'email': 'lucy.lamb@family.com'
 }, {
 	'forename': 'Joseph',
 	'surname': 'Pearson',
