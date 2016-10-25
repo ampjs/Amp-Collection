@@ -62,13 +62,15 @@ describe('Collection schema', function() {
         it('Strict mode should throw an error.', function() {
             var schemaValues = FamilyCollection.schema(['forename', 'surname', 'age', 'email'], true);
 
-            chai.expect(function() {
+            var errorTest = function() {
                 schemaValues.addItem({
                     'forename': 'Florance',
                     'surname': 'Pearson',
                     'age': 89
                 });
-            }).to.throw("Collection: Schema in strict mode -- keys do not match. Expecting: age,email,forename,surname - given; age,forename,surname");
+            };
+
+            chai.expect(errorTest).to.throw(/Collection: Schema in strict mode -- keys do not match.Expecting: age,email,forename,surname - given; age,forename,surname/);
         });
     });
 });
