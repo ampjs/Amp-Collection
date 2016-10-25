@@ -41,6 +41,29 @@ class Filters {
     }
 
     /**
+     * Only retrieve the requested keys.
+     * @param   {Array}   keys  A list of keys to include.
+     * @return  {Object}        Return self.
+     */
+    only(keys) {
+		let new_processed = [];
+
+		for(let key in keys) {
+			for(let data in this._data) {
+				if(typeof new_processed[data] === 'undefined') {
+					new_processed[data] = [];
+				}
+
+				new_processed[data][keys[key]] = this._data[data][keys[key]];
+			}
+		}
+
+		this._processed = new_processed;
+
+		return this;
+	}
+
+    /**
      * Remove specified items from the data or processed data.
      * @param  {Array}  except A list of items to exclude
      * @return {Object}        Return self
