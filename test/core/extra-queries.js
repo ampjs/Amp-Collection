@@ -27,6 +27,16 @@ var CollectionData = [{
 var FamilyCollection = new Collection(CollectionData);
 
 describe('Collection Extra Queries', function() {
+    describe('only()', function() {
+        it('"email" of each item should be undefined', function() {
+            var exceptEmail = FamilyCollection.only(['forename', 'surname', 'age']).all();
+
+            for(var i in exceptEmail) {
+                chai.expect(exceptEmail[i].email).to.be.undefined;
+            }
+        });
+    });
+
     describe('except()', function() {
         it('"age" of each item should be undefined', function() {
             var exceptAge = FamilyCollection.except(['age']).all();
