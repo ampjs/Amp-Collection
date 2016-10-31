@@ -39,8 +39,15 @@ class FingerPrint {
     createGetter(array) {
         let string = JSON.stringify(array);
 
-        array.__defineGetter__('__FingerPrint__', () => {
-            return this.generate(string);
+        if(array.__FingerPrint__) {
+            return array;
+        }
+
+        Object.defineProperty(array, '__FingerPrint__', {
+            enumerable: false,
+            get: () => {
+                return this.generate(string);
+            }
         });
 
         return array;

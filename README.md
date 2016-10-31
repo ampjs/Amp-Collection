@@ -1,6 +1,11 @@
 # Amp Collection
 A simple Javascript-based Collection class based on Laravel 5 Collections.
 
+## Install
+```
+npm i @ampersarnie/collection
+```
+
 ## Documentation
 Usage documentation can be found in in the `manual` directory.
 

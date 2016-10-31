@@ -92,12 +92,28 @@ class Collection {
         this.data = [];
 
         if(Array.isArray(data)) {
-            this.data = data;
+            this.data = this.nestedCollection(data);
         } else {
             this.data.push(data);
         }
 
         this.data = this.FingerPrint.addPrints(this.data);
+    }
+
+    nestedCollection(data) {
+        let value;
+
+        for(let i in data) {
+            for(let item in data[i]) {
+                value = data[i][item];
+
+                if(typeof value === 'object' && typeof value[0] === 'object') {
+                    data[i][item] = new Collection(value);
+                }
+            }
+        }
+
+        return data;
     }
 
     /**
@@ -136,7 +152,7 @@ class Collection {
      */
     addItem(value) {
         this.data.push(this.checkSchema(value));
-        this.data = this.FingerPrint.addPrints(this.data);
+        this.setData = this.data;
 
         return this;
     }
