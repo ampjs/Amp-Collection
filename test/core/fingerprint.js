@@ -35,6 +35,10 @@ describe('Collection FingerPrint hashing', function() {
             chai.expect(FamilyCollection.data[0].__FingerPrint__).to.not.equal('test');
         });
 
+        it('Hashes are not enumerable', function() {
+            chai.expect(FamilyCollection.data[0].propertyIsEnumerable('__FingerPrint__')).to.equal(false);
+        });
+
         it('__FingerPrint__ should should be a hashed value', function() {
             chai.expect(FamilyCollection.data[0].__FingerPrint__).to.be.an('number');
             chai.expect(FamilyCollection.data[0].__FingerPrint__).to.be.above(0);
