@@ -10,7 +10,7 @@ describe('Collection Initial', function() {
         chai.expect(InitialCollection.data.length).to.equal(0);
     });
 
-    it('__isProcessed should be a false boolean', function() {
+    it('_isProcessed should be a false boolean', function() {
         chai.expect(InitialCollection._isProcessed).to.be.an('boolean');
         chai.expect(InitialCollection._isProcessed).to.equal(false);
     });
