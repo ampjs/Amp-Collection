@@ -121,7 +121,10 @@ class Collection {
      * @returns {Array} The data in the Collection
      */
     all() {
-        return this._data;
+        // Reset the data
+        let data = this._data;
+        this._isProcessed = false;
+        return data;
     }
 
     /**
