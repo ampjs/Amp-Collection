@@ -1,0 +1,11 @@
+.DS_Store
+.esdoc
+.eslintignore
+.eslintrc
+.gitignore
+
+documentation/
+node_modules/
+perf/
+src/
+test/

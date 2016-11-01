@@ -34,33 +34,33 @@ describe('PaginatedCollection pages', function() {
         });
 
         it('paginate() chunks the data into twos.', function() {
-            PaginatedCollection.paginate(2);
+            let pages = PaginatedCollection.paginate(2).all();
 
-            chai.expect(PaginatedCollection.all()).to.be.an('array');
-            chai.expect(PaginatedCollection.all().length).to.equal(2);
+            chai.expect(pages).to.be.an('array');
+            chai.expect(pages.length).to.equal(2);
         });
 
         it('paginate() to have a default of 5.', function() {
-            PaginatedCollection.paginate(0);
+            let pages = PaginatedCollection.paginate(0).all();
 
-            chai.expect(PaginatedCollection.all()).to.be.an('array');
-            chai.expect(PaginatedCollection.all().length).to.equal(1);
+            chai.expect(pages).to.be.an('array');
+            chai.expect(pages.length).to.equal(1);
         });
 
         it('paginate() accepts strings.', function() {
-            PaginatedCollection.paginate('2');
+            let pages = PaginatedCollection.paginate('2').all();
 
-            chai.expect(PaginatedCollection.all()).to.be.an('array');
-            chai.expect(PaginatedCollection.all().length).to.equal(2);
+            chai.expect(pages).to.be.an('array');
+            chai.expect(pages.length).to.equal(2);
         });
     });
 
     describe('page()', function() {
         it('Can get the second page.', function() {
-            PaginatedCollection.paginate(2).page(2);
+            let pages = PaginatedCollection.paginate(2).page(2).all();
 
-            chai.expect(PaginatedCollection.all()).to.be.an('array');
-            chai.expect(PaginatedCollection.all().length).to.equal(2);
+            chai.expect(pages).to.be.an('array');
+            chai.expect(pages.length).to.equal(2);
         });
 
         describe('{pages}', function() {

@@ -121,7 +121,11 @@ class Collection {
      * @returns {Array} The data in the Collection
      */
     all() {
-        return this._data;
+        // Reset the data
+        let data = this._data;
+        this.reset();
+
+        return data;
     }
 
     /**
@@ -129,7 +133,11 @@ class Collection {
      * @returns {Object} The first item in the Collection
      */
     first() {
-        return this._data[0];
+        let data = this._data[0];
+
+        this.reset();
+
+        return data;
     }
 
     /**
@@ -142,7 +150,11 @@ class Collection {
             return null;
         }
 
-        return this._data[item];
+        let data = this._data[item];
+
+        this.reset();
+
+        return data;
     }
 
     /**
@@ -164,6 +176,7 @@ class Collection {
      */
     reset() {
         this.processed = this.data;
+        this._isProcessed = false;
 
         return this;
     }
