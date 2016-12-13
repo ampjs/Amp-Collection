@@ -107,7 +107,8 @@ class Collection {
             for(let item in data[i]) {
                 value = data[i][item];
 
-                if(typeof value === 'object' && typeof value[0] === 'object') {
+                // @TODO: Tidy up.
+                if(typeof value === 'object' && value !== null && typeof value[0] === 'object') {
                     data[i][item] = new Collection(value);
                 }
             }
