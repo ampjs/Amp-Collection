@@ -1,6 +1,6 @@
 {
   "name": "@ampersarnie/collection",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "Collection",
   "main": "collection.js",
   "options": {},
@@ -31,6 +31,6 @@
     "mocha": "^2.4.5"
   },
   "dependencies": {
-    "@ampersarnie/implements": "^0.3.0"
+    "@ampersarnie/implements": "^0.3.1"
   }
 }
