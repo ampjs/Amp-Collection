@@ -6,13 +6,43 @@ class Helpers {
      * @return {(Boolean|Object)} Returns false or self if match.
      */
     has(key) {
+        let found = false;
+
         for(let item = 0; item < this.data.length; item++) {
-            if(typeof this.data[item][key] === 'undefined') {
-                return false;
+            if(this._isDotNotation(key)) {
+                found = this._dotNotatedHas(this.data[item], key);
+            } else {
+                found = this._singularHas(this.data[item], key);
             }
         }
 
-        return this;
+        return found;
+    }
+
+    _dotNotatedHas(item, dot_key) {
+        let key = '',
+            notation = this._getDotNotation(dot_key),
+            processed_item = item;
+
+        for(let nkey in notation) {
+            key = notation[nkey];
+
+            if(typeof processed_item[key] === 'undefined') {
+                return false;
+            }
+
+            processed_item = processed_item[key];
+        }
+
+        return true;
+    }
+
+    _singularHas(item, key) {
+        if(typeof item[key] === 'undefined') {
+            return false;
+        }
+
+        return true;
     }
 
     /**

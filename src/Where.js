@@ -46,15 +46,70 @@ class Where {
         this._processed = processed;
 
         for(let item = 0; item < this.data.length; item++) {
-            if(typeof this.data[item][key] === 'undefined') {
-                return this;
+            if(this._isDotNotation(key)) {
+                this._dotNotatedWhere(this.data[item], key, operator, value);
+            } else {
+                this._singularWhere(item, this.data[item][key], operator, value);
             }
+        }
 
-            let where = this._whereOperators(this.data[item][key], operator, value);
+        return this;
+    }
 
-            if(where) {
-                this.processed.push(this.data[item]);
+    /**
+     * Search an item using a dot notated key for recursive
+     * where seaches.
+     * @private
+     * @param  {Object} item        Item to search within.
+     * @param  {String} dot_key     Dot notated key
+     * @param  {String} operator    Operator to be used in comparison
+     * @param  {String} value       Value to match
+     * @return {Object}             Self.
+     */
+    _dotNotatedWhere(item, dot_key, operator, value) {
+        let key = '',
+            notation = this._getDotNotation(dot_key),
+            processed_item = item,
+            where = false;
+
+        for(let nkey in notation) {
+            key = notation[nkey];
+
+            if(typeof processed_item[key] !== 'undefined') {
+                processed_item = processed_item[key];
+
+                if(!Array.isArray(processed_item) && processed_item !== Object(processed_item)) {
+                    where = this._whereOperators(processed_item, operator, value);
+                    break;
+                }
             }
+        }
+
+        if(where) {
+            this.processed.push(item);
+        }
+
+        return this;
+    }
+
+    /**
+     * Search an item using a singular key.
+     * @private
+     * @param  {Object} item        Item to search within.
+     * @param  {Mixed}  data        Value to compare with.
+     * @param  {String} operator    Operator to be used in comparison
+     * @param  {String} value       Value to match
+     * @return {Object}             Self
+     */
+    _singularWhere(item, data, operator, value) {
+        if(typeof data === 'undefined') {
+            return this;
+        }
+
+        let where = this._whereOperators(data, operator, value);
+
+        if(where) {
+            this.processed.push(this.data[item]);
         }
 
         return this;
