@@ -100,8 +100,13 @@ class Collection {
         this.data = this.FingerPrint.addPrints(this.data);
     }
 
+    /**
+     * Creates a nested collection.
+     * @param   {Object}    data    Object to create the nested collection from.
+     * @return  {Object}            Returns the data after processing.
+     */
     nestedCollection(data) {
-        let value;
+        let value = {};
 
         for(let i in data) {
             for(let item in data[i]) {
@@ -124,6 +129,7 @@ class Collection {
     all() {
         // Reset the data
         let data = this._data;
+
         this.reset();
 
         return data;
@@ -180,6 +186,24 @@ class Collection {
         this._isProcessed = false;
 
         return this;
+    }
+
+    /**
+     * Checks if string is dot notated.
+     * @param   {String}  key   Dot notated string
+     * @return  {Boolean}       Whether is dot notated
+     */
+    _isDotNotation(key = '') {
+        return (key.indexOf('.') !== -1);
+    }
+
+    /**
+     * Splits the dot notation into an Array.
+     * @param   {String}    key Dot notated string
+     * @return  {Array}         Array of keys
+     */
+    _getDotNotation(key = '') {
+        return key.split('.');
     }
 }
 

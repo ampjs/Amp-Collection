@@ -46,22 +46,22 @@ class Filters {
      * @return  {Object}        Return self.
      */
     only(keys) {
-		let new_processed = [];
+        let new_processed = [];
 
-		for(let key in keys) {
-			for(let data in this._data) {
-				if(typeof new_processed[data] === 'undefined') {
-					new_processed[data] = [];
-				}
+        for(let key in keys) {
+            for(let data in this._data) {
+                if(typeof new_processed[data] === 'undefined') {
+                    new_processed[data] = [];
+                }
 
-				new_processed[data][keys[key]] = this._data[data][keys[key]];
-			}
-		}
+                new_processed[data][keys[key]] = this._data[data][keys[key]];
+            }
+        }
 
-		this._processed = new_processed;
+        this._processed = new_processed;
 
-		return this;
-	}
+        return this;
+    }
 
     /**
      * Remove specified items from the data or processed data.
