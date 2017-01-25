@@ -2,20 +2,45 @@
 ## Creating a Collection
 ```js
 let family = [{
-	'forename': 'Mary',
-	'surname': 'Lamb',
-	'age': '45',
-	'email': 'mary.lamb@family.com'
+    'forename': 'Mary',
+    'surname': 'Lamb',
+    'age': 45,
+    'email': 'mary.lamb@family.com',
+    'home': {
+        'city': 'London',
+        'country': 'United Kingdom'
+    },
+    'hobbies': ['Music', 'Swimming']
 }, {
-	'forename': 'Lucy',
-	'surname': 'Lamb',
-	'age': '43',
-	'email': 'lucy.lamb@family.com'
+    'forename': 'Lucy',
+    'surname': 'Lamb',
+    'age': 43,
+    'email': 'lucy.lamb@family.com',
+    'home': {
+        'city': 'Middlesbrough',
+        'country': 'United Kingdom'
+    },
+    'hobbies': ['Boxing', 'Science']
 }, {
-	'forename': 'Steven',
-	'surname': 'Lamb',
-	'age': '12',
-	'email': 'steven.lamb@family.com'
+    'forename': 'Steven',
+    'surname': 'Lamb',
+    'age': 12,
+    'email': 'steven.lamb@family.com',
+    'home': {
+        'city': 'London',
+        'country': 'United Kingdom'
+    },
+    'hobbies': ['Reading']
+}, {
+    'forename': 'Joseph',
+    'surname': 'Pearson',
+    'age': 87,
+    'email': 'joseph.pearson@family.com',
+    'home': {
+        'city': 'London',
+        'country': 'United Kingdom'
+    },
+    'hobbies': []
 }];
 
 let FamilyCollection = new AmpCollection(family);
@@ -87,10 +112,39 @@ FamilyCollection.where('surname', 'Lamb').first();
 **Result**
 ```
 [{
-	'forename': 'Mary',
-	'surname': 'Lamb',
-	'age': '45',
-	'email': 'mary.lamb@family.com'
+    'forename': 'Mary',
+    'surname': 'Lamb',
+    'age': 45,
+    'email': 'mary.lamb@family.com',
+    'home': {
+        'city': 'London',
+        'country': 'United Kingdom'
+    },
+    'hobbies': ['Music', 'Swimming']
+}]
+```
+
+## Using dot notation
+```js
+FamilyCollection.where('home.city', 'London').all()
+```
+*Indices can also be used for arrays*
+```js
+FamilyCollection.where('hobbies.1', 'Swimming').all()
+```
+
+**Result**
+```
+[{
+    'forename': 'Mary',
+    'surname': 'Lamb',
+    'age': 45,
+    'email': 'mary.lamb@family.com',
+    'home': {
+        'city': 'London',
+        'country': 'United Kingdom'
+    },
+    'hobbies': ['Music', 'Swimming']
 }]
 ```
 
@@ -124,23 +178,27 @@ No members found.
 
 ## Excluding data
 ```js
-FamilyCollection.except(['email', 'age']).all();
+FamilyCollection.except(['email', 'age', 'home']).all();
 ```
 
 **Result**
 ```
 [{
-	'forename': 'Mary',
-	'surname': 'Lamb'
+    'forename': 'Mary',
+    'surname': 'Lamb',
+    'hobbies': ['Music', 'Swimming']
 }, {
-	'forename': 'Lucy',
-	'surname': 'Lamb'
+    'forename': 'Lucy',
+    'surname': 'Lamb',
+    'hobbies': ['Boxing', 'Science']
 }, {
-	'forename': 'Steven',
-	'surname': 'Lamb'
+    'forename': 'Steven',
+    'surname': 'Lamb',
+    'hobbies': ['Reading']
 }, {
-	'forename': 'Joseph',
-	'surname': 'Pearson'
+    'forename': 'Joseph',
+    'surname': 'Pearson',
+    'hobbies': []
 }];
 ```
 
