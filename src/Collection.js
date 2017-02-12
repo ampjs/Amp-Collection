@@ -1,7 +1,7 @@
 import Filters from './Filters.js';
 import FingerPrint from './FingerPrint.js';
 import Helpers from './Helpers.js';
-import {Implements} from '@ampersarnie/implements';
+import { Implements } from '@ampersarnie/implements';
 import Schema from './Schema.js';
 import Where from './Where.js';
 
@@ -9,6 +9,12 @@ import Where from './Where.js';
  * Allows the creation and search of a given array of data.
  * @class
  * @classdesc The core Collection class.
+ * @implements {Trait|Filters}
+ * @implements {Trait|FingerPrint}
+ * @implements {Trait|Helpers}
+ * @implements {Trait|Schema}
+ * @implements {Trait|Where}
+ * @implements {Implements}
  */
 class Collection {
 
@@ -49,6 +55,10 @@ class Collection {
         return this;
     }
 
+    /**
+     * Traits to use
+     * @return {Array}  Array of classes to use as traits.
+     */
     traits() {
         return [Where, Helpers, Schema, Filters];
     }

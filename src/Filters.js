@@ -1,3 +1,8 @@
+/**
+ * Methods of filtering through the collection data.
+ * @class
+ * @classdesc Filter class/trait for Collections.
+ */
 class Filters {
 
     /**
@@ -18,8 +23,8 @@ class Filters {
      * Gets items that are unique in the collection. Uses the item FingerPrint
      * to find and remove duplicates. By using a key you can specify
      * finding duplicates by an alternative match.
-     * @param   {String} key=__FingerPrint__   Key to find uniques by
-     * @return  {object}                Return self
+     * @param   {String} key=__FingerPrint__    Key to find uniques by
+     * @return  {object}                        Return self
      */
     unique(key) {
         let stored = [],
@@ -35,6 +40,12 @@ class Filters {
             }
         }
 
+        /**
+         * Collection object of data that
+         * has been filtered and/or processed
+         * somewhere in the chain.
+         * @type {Array}
+         */
         this.processed = stored;
 
         return this;
@@ -58,6 +69,12 @@ class Filters {
             }
         }
 
+        /**
+         * Collection object of data that
+         * has been filtered and/or processed
+         * somewhere in the chain.
+         * @type {Array}
+         */
         this._processed = new_processed;
 
         return this;
@@ -84,6 +101,12 @@ class Filters {
             }
         }
 
+        /**
+         * Collection object of data that
+         * has been filtered and/or processed
+         * somewhere in the chain.
+         * @type {Array}
+         */
         this.processed = removed;
 
         return this;

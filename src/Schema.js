@@ -1,3 +1,8 @@
+/**
+ * Methods to act as schema checks when creating collection data.
+ * @class
+ * @classdesc Schema class/trait for Collections.
+ */
 class Schema {
 
     /**

@@ -1,3 +1,9 @@
+/**
+ * Methods to act as helpers for various uses
+ * when checking collection data.
+ * @class
+ * @classdesc Helper class/trait for Collections.
+ */
 class Helpers {
 
     /**
@@ -19,6 +25,14 @@ class Helpers {
         return found;
     }
 
+    /**
+     * Performs the "has" check if the key is
+     * using dot-notation.
+     * @param   {Object|Array}  item    The collection item to check.
+     * @param   {String}        dot_key Key in the dot-notation format.
+     * @return  {Boolean}               Boolean value depending on whether
+     *                                  the check is successful or not.
+     */
     _dotNotatedHas(item, dot_key) {
         let key = '',
             notation = this._getDotNotation(dot_key),
@@ -37,6 +51,14 @@ class Helpers {
         return true;
     }
 
+    /**
+     * Performs the "has" check if the key is
+     * using a sigular, non-dot-notated key.
+     * @param   {Object|Array}  item    The collection item to check.
+     * @param   {String}        key     Key to check.
+     * @return  {Boolean}               Boolean value depending on whether
+     *                                  the check is successful or not.
+     */
     _singularHas(item, key) {
         if(typeof item[key] === 'undefined') {
             return false;

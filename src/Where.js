@@ -1,3 +1,8 @@
+/**
+ * Methods for performaing queries on collection data.
+ * @class
+ * @classdesc Where class/trait for Collections.
+ */
 class Where {
 
     /**
@@ -43,6 +48,12 @@ class Where {
      * @return {Object}             Return self
      */
     doWhere(processed, key, operator, value) {
+        /**
+         * Collection object of data that
+         * has been filtered and/or processed
+         * somewhere in the chain.
+         * @type {Array}
+         */
         this._processed = processed;
 
         for(let item = 0; item < this.data.length; item++) {
