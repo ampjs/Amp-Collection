@@ -44,7 +44,7 @@ class Collection {
          * each query.
          * @type {Array}
          */
-        this.processed = [];
+        this._processed = [];
 
         /**
          * Whether the data has changed/processed.
@@ -192,7 +192,7 @@ class Collection {
      * @return {Object}             Return self
      */
     reset() {
-        this.processed = this.data;
+        this._processed = this.data;
         this._isProcessed = false;
 
         return this;

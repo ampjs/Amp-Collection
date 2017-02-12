@@ -46,7 +46,7 @@ class Filters {
          * somewhere in the chain.
          * @type {Array}
          */
-        this.processed = stored;
+        this._processed = stored;
 
         return this;
     }
@@ -107,7 +107,7 @@ class Filters {
          * somewhere in the chain.
          * @type {Array}
          */
-        this.processed = removed;
+        this._processed = removed;
 
         return this;
     }
