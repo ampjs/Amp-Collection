@@ -66,4 +66,24 @@ describe('Collection create data', function() {
             chai.expect(Items.get(2).likes.get(1).name).to.equal('Wine');
         });
     });
+
+    describe('addItems()', function() {
+        it('can add multiple items.', function() {
+            var Item = FamilyCollection.addItem([{
+                'forename': 'Joseph',
+                'surname': 'Pearson',
+                'age': 87,
+                'email': 'joseph.pearson@family.com'
+            }, {
+                'forename': 'Bob',
+                'surname': 'Wilson',
+                'age': 39,
+                'email': 'robert.wilson@family.com'
+            }]);
+
+            chai.expect(Item).to.be.an('object');
+            chai.expect(FamilyCollection.all()).to.be.an('array');
+            chai.expect(FamilyCollection.all().length).to.equal(6);
+        });
+    });
 });

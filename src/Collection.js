@@ -186,6 +186,13 @@ class Collection {
         return this;
     }
 
+    addItems(value = []) {
+        this.data.push.apply(this.data, value);
+        this.setData = this.data;
+
+        return this;
+    }
+
     /**
      * Resets the processed data collection back to
      * its original state
