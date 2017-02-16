@@ -1,7 +1,7 @@
 import Filters from './Filters.js';
 import FingerPrint from './FingerPrint.js';
 import Helpers from './Helpers.js';
-import { Implements } from '@ampersarnie/implements';
+import {Implements} from '@ampersarnie/implements';
 import Schema from './Schema.js';
 import Where from './Where.js';
 
@@ -187,7 +187,7 @@ class Collection {
     }
 
     addItems(value = []) {
-        this.data.push.apply(this.data, value);
+        this.data.push(...value);
         this.setData = this.data;
 
         return this;

@@ -6,11 +6,14 @@
   "options": {},
   "scripts": {
     "mocha": "./node_modules/.bin/mocha --growl test/tests.js --compilers js:babel-core/register -r jsdom-global/register",
-    "mocha:report": "npm run mocha -- --reporter markdown test/tests.js > test/REPORT.md; echo $(($(date +'%s * 1000 + %-N / 1000000'))) >> test/REPORT.md",
-    "build": "rollup -c && webpack && gzip -c collection.min.js > collection.min.js.gz",
+    "mocha:report": "npm run -s mocha -- --reporter markdown test/tests.js > test/REPORT.md; echo $(($(date +'%s * 1000 + %-N / 1000000'))) >> test/REPORT.md; echo 'COMPLETED REPORT'",
+    "build": "npm run build:rup && npm run build:webpack && npm run build:gzip",
+    "build:rup": "rollup -c config/rollup.config.js",
+    "build:webpack": "webpack --config config/webpack.config.js",
+    "build:gzip": "gzip -c collection.min.js > collection.min.js.gz",
     "build:test": "npm run build; npm run mocha",
-    "prepublish": "npm run build; npm run mocha; npm run mocha:report",
-    "lint": "eslint src/*"
+    "prepublish": "npm run build; npm run mocha; npm run -s mocha:report",
+    "lint": "eslint src/* -c config/.eslintrc --ignore-path config/.eslintignore"
   },
   "babel": {
     "presets": [

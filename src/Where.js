@@ -48,6 +48,7 @@ class Where {
      * @return {Object}             Return self
      */
     doWhere(processed, key, operator, value) {
+
         /**
          * Collection object of data that
          * has been filtered and/or processed

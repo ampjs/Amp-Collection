@@ -1,6 +1,6 @@
 export default {
-  entry: 'collection.js',
-  dest: 'collection.min.js',
+  entry: './collection.js',
+  dest: './collection.min.js',
   format: 'umd',
   plugins: [],
   external: [
