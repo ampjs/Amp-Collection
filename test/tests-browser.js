@@ -1,6 +1,3 @@
-import chai from 'chai';
-import { Collection } from '../../collection.js';
-
 var CollectionData = [{
     'forename': 'Mary',
     'surname': 'Lamb',
@@ -25,16 +22,16 @@ var CollectionData = [{
 
 var FamilyCollection = new Collection(CollectionData);
 
-describe('Collection create data', () => {
-    describe('Example data', () => {
-        it('all() - Should get all three FamilyCollection values', () => {
+describe('Collection create data', function() {
+    describe('Example data', function() {
+        it('all() - Should get all three FamilyCollection values', function() {
             chai.expect(FamilyCollection.all()).to.be.an('array');
             chai.expect(FamilyCollection.all().length).to.equal(3);
         });
     });
 
-    describe('addItem()', () => {
-        it('Should have an additional item', () => {
+    describe('addItem()', function() {
+        it('Should have an additional item', function() {
             var Item = FamilyCollection.addItem({
                 'forename': 'Joseph',
                 'surname': 'Pearson',
@@ -47,7 +44,7 @@ describe('Collection create data', () => {
             chai.expect(FamilyCollection.all().length).to.equal(4);
         });
 
-        it('Nested array should also be a collection', () => {
+        it('Nested array should also be a collection', function() {
             var Items = FamilyCollection.addItem({
                 'forename': 'Joseph',
                 'surname': 'Pearson',
@@ -66,8 +63,8 @@ describe('Collection create data', () => {
         });
     });
 
-    describe('addItems()', () => {
-        it('can add multiple items.', () => {
+    describe('addItems()', function() {
+        it('can add multiple items.', function() {
             var Item = FamilyCollection.addItem([{
                 'forename': 'Joseph',
                 'surname': 'Pearson',

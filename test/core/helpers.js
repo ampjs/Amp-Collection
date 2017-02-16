@@ -1,6 +1,5 @@
-var assert = require('assert'),
-    chai = require('chai'),
-    { Collection } = require('../../collection.js');
+import chai from 'chai';
+import { Collection } from '../../collection.js';
 
 var CollectionData = [{
     'forename': 'Mary',
@@ -36,22 +35,22 @@ var CollectionData = [{
 
 var FamilyCollection = new Collection(CollectionData);
 
-describe('Collection Helpers', function() {
-    it('has() - Should not have a key of "shoesize" and return false.', function() {
+describe('Collection Helpers', () => {
+    it('has() - Should not have a key of "shoesize" and return false.', () => {
         var keyExists = FamilyCollection.has('showsize');
 
         chai.expect(keyExists).to.be.an('boolean');
         chai.expect(keyExists).to.equal(false);
     });
 
-    it('has() - dot notation - Should have key of home.city.', function() {
+    it('has() - dot notation - Should have key of home.city.', () => {
         var keyExists = FamilyCollection.has('home.city');
 
         chai.expect(keyExists).to.be.an('boolean');
         chai.expect(keyExists).to.equal(true);
     });
 
-    it('isEmpty() - Should return true.', function() {
+    it('isEmpty() - Should return true.', () => {
         var isEmpty = FamilyCollection.where('forename', 'Annabel');
         chai.expect(isEmpty.isEmpty()).to.be.an('boolean');
         chai.expect(isEmpty.isEmpty()).to.equal(true);

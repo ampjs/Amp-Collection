@@ -1,6 +1,5 @@
-var assert = require('assert'),
-    chai = require('chai'),
-    { Collection } = require('../../collection.js');
+import chai from 'chai';
+import { Collection } from '../../collection.js';
 
 var CollectionData = [{
     'forename': 'Mary',
@@ -26,26 +25,31 @@ var CollectionData = [{
 
 var FamilyCollection = new Collection(CollectionData);
 
-describe('Collection FingerPrint hashing', function() {
-    describe('hash()', function() {
-        it('Hashes cannot be overwritten', function() {
-            // Try to overwrite.
-            FamilyCollection.data[0].__FingerPrint__ = 'test';
-
-            chai.expect(FamilyCollection.data[0].__FingerPrint__).to.not.equal('test');
+describe('Collection FingerPrint hashing', () => {
+    describe('hash()', () => {
+        it('Hashes cannot be overwritten', () => {
+            chai.expect(() => {
+                // Try to overwrite.
+                FamilyCollection.data[0].__FingerPrint__ = 'test';
+            }).to.throw(TypeError);
         });
 
-        it('Hashes are not enumerable', function() {
+        it('Hashes are not enumerable', () => {
             chai.expect(FamilyCollection.data[0].propertyIsEnumerable('__FingerPrint__')).to.equal(false);
         });
 
-        it('__FingerPrint__ should should be a hashed value', function() {
+        it('__FingerPrint__ should should be a hashed value', () => {
             chai.expect(FamilyCollection.data[0].__FingerPrint__).to.be.an('number');
             chai.expect(FamilyCollection.data[0].__FingerPrint__).to.be.above(0);
+            chai.expect(FamilyCollection.data[0].__FingerPrint__).to.equal(362063917);
+
             chai.expect(FamilyCollection.data[1].__FingerPrint__).to.be.an('number');
             chai.expect(FamilyCollection.data[1].__FingerPrint__).to.be.above(0);
+            chai.expect(FamilyCollection.data[1].__FingerPrint__).to.equal(2045079471);
+
             chai.expect(FamilyCollection.data[2].__FingerPrint__).to.be.an('number');
             chai.expect(FamilyCollection.data[2].__FingerPrint__).to.be.above(0);
+            chai.expect(FamilyCollection.data[2].__FingerPrint__).to.equal(243978995);
         })
     });
 });

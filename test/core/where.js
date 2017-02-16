@@ -1,6 +1,5 @@
-var assert = require('assert'),
-    chai = require('chai'),
-    { Collection } = require('../../collection.js');
+import chai from 'chai';
+import { Collection } from '../../collection.js';
 
 var CollectionData = [{
     'forename': 'Mary',
@@ -46,59 +45,59 @@ var CollectionData = [{
 
 var FamilyCollection = new Collection(CollectionData);
 
-describe('Collection where.', function() {
-    describe('where() and orWhere()', function() {
-        it('Where forename is equal to Lucy', function() {
+describe('Collection where.', () => {
+    describe('where() and orWhere()', () => {
+        it('Where forename is equal to Lucy', () => {
             var Where = FamilyCollection.where('forename', 'Lucy').all();
             chai.expect(Where).to.be.an('array');
             chai.expect(Where.length).to.equal(1);
         });
 
-        it('Where forename is equal to Lucy or surname equal to Pearson', function() {
+        it('Where forename is equal to Lucy or surname equal to Pearson', () => {
             var orWhere = FamilyCollection.where('forename', 'Lucy').orWhere('surname', 'Pearson').all();
             chai.expect(orWhere).to.be.an('array');
             chai.expect(orWhere.length).to.equal(2);
         });
 
-        it('Where \'home.city\' is equal to \'London\'', function() {
+        it('Where \'home.city\' is equal to \'London\'', () => {
             var Equal = FamilyCollection.where('home.city', '=', 'Middlesbrough').all();
             chai.expect(Equal).to.be.an('array');
             chai.expect(Equal.length).to.equal(1);
         });
 
-        it('Where \'hobbies.1\' is equal to \'Science\'', function() {
+        it('Where \'hobbies.1\' is equal to \'Science\'', () => {
             var Equal = FamilyCollection.where('hobbies.1', '=', 'Science').all();
             chai.expect(Equal).to.be.an('array');
             chai.expect(Equal.length).to.equal(1);
         });
     });
 
-    describe('where() operators', function() {
-        it('(=) Where forename is equal to Lucy', function() {
+    describe('where() operators', () => {
+        it('(=) Where forename is equal to Lucy', () => {
             var Equal = FamilyCollection.where('forename', '=', 'Lucy').all();
             chai.expect(Equal).to.be.an('array');
             chai.expect(Equal.length).to.equal(1);
         });
 
-        it('(>) Where age is greater than 45', function() {
+        it('(>) Where age is greater than 45', () => {
             var greaterThan = FamilyCollection.where('age', '>', 45).all();
             chai.expect(greaterThan).to.be.an('array');
             chai.expect(greaterThan.length).to.equal(1);
         });
 
-        it('(>=) Where age is greater than or equal to 45', function() {
+        it('(>=) Where age is greater than or equal to 45', () => {
             var greaterThan = FamilyCollection.where('age', '>=', 45).all();
             chai.expect(greaterThan).to.be.an('array');
             chai.expect(greaterThan.length).to.equal(2);
         });
 
-        it('(<) Where age is less than 45', function() {
+        it('(<) Where age is less than 45', () => {
             var lessThan = FamilyCollection.where('age', '<', 45).all();
             chai.expect(lessThan).to.be.an('array');
             chai.expect(lessThan.length).to.equal(2);
         });
 
-        it('(<=) Where age is less than or equal to 45', function() {
+        it('(<=) Where age is less than or equal to 45', () => {
             var lessThan = FamilyCollection.where('age', '<=', 45).all();
             chai.expect(lessThan).to.be.an('array');
             chai.expect(lessThan.length).to.equal(3);

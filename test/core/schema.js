@@ -1,6 +1,5 @@
-var assert = require('assert'),
-    chai = require('chai'),
-    { Collection } = require('../../collection.js');
+import chai from 'chai';
+import { Collection } from '../../collection.js';
 
 var CollectionData = [{
     'forename': 'Mary',
@@ -21,23 +20,23 @@ var CollectionData = [{
 
 var FamilyCollection = new Collection(CollectionData);
 
-describe('Collection schema', function() {
+describe('Collection schema', () => {
     var schemaValues = FamilyCollection.schema(['forename', 'surname', 'age', 'email']);
 
-    describe('schema() - Should return (this).', function() {
-        it('this._schema should be an array', function() {
+    describe('schema() - Should return (this).', () => {
+        it('this._schema should be an array', () => {
             chai.expect(schemaValues._schema).to.be.an('array');
             chai.expect(schemaValues._schema.length).to.equal(4);
         });
 
-        it('this._schemaStrict should be false', function() {
+        it('this._schemaStrict should be false', () => {
             chai.expect(schemaValues._schemaStrict).to.be.an('boolean');
             chai.expect(schemaValues._schemaStrict).to.equal(false);
         });
     });
 
-    describe('add() should throw errors', function() {
-        it('Should be missing key warning', function() {
+    describe('add() should throw errors', () => {
+        it('Should be missing key warning', () => {
             var consoleValue,
                 consoleMessage;
 
@@ -59,10 +58,10 @@ describe('Collection schema', function() {
             chai.expect(consoleMessage).to.equal("Collection: key \"email\" missing from collection.");
         });
 
-        it('Strict mode should throw an error.', function() {
+        it('Strict mode should throw an error.', () => {
             var schemaValues = FamilyCollection.schema(['forename', 'surname', 'age', 'email'], true);
 
-            var errorTest = function() {
+            var errorTest = () => {
                 schemaValues.addItem({
                     'forename': 'Florance',
                     'surname': 'Pearson',

@@ -1,6 +1,5 @@
-var assert = require('assert'),
-    chai = require('chai'),
-    { Collection } = require('../../collection.js');
+import chai from 'chai';
+import { Collection } from '../../collection.js';
 
 var CollectionData = [{
     'forename': 'Mary',
@@ -26,9 +25,9 @@ var CollectionData = [{
 
 var FamilyCollection = new Collection(CollectionData);
 
-describe('Collection Extra Queries', function() {
-    describe('only()', function() {
-        it('"email" of each item should be undefined', function() {
+describe('Collection Extra Queries', () => {
+    describe('only()', () => {
+        it('"email" of each item should be undefined', () => {
             var exceptEmail = FamilyCollection.only(['forename', 'surname', 'age']).all();
 
             for(var i in exceptEmail) {
@@ -37,8 +36,8 @@ describe('Collection Extra Queries', function() {
         });
     });
 
-    describe('except()', function() {
-        it('"age" of each item should be undefined', function() {
+    describe('except()', () => {
+        it('"age" of each item should be undefined', () => {
             var exceptAge = FamilyCollection.except(['age']).all();
 
             for(var i in exceptAge) {
@@ -47,15 +46,15 @@ describe('Collection Extra Queries', function() {
         });
     });
 
-    describe('unique()', function() {
-        it('Only return unique items', function() {
+    describe('unique()', () => {
+        it('Only return unique items', () => {
             var uniques = FamilyCollection.unique().all();
 
             chai.expect(uniques).to.be.an('array');
             chai.expect(uniques.length).to.equal(2);
         });
 
-        it('Only return unique items matching the \'age\' key', function() {
+        it('Only return unique items matching the \'age\' key', () => {
             var uniques = FamilyCollection.unique('age').all();
 
             chai.expect(uniques).to.be.an('array');

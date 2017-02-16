@@ -1,6 +1,5 @@
-var assert = require('assert'),
-    chai = require('chai'),
-    { Collection, PaginatedCollection } = require('../../collection.js');
+import chai from 'chai';
+import { Collection, PaginatedCollection } from '../../collection.js';
 
 var CollectionData = [{
     'forename': 'Mary',
@@ -21,15 +20,15 @@ var CollectionData = [{
 
 var InitialCollection = new PaginatedCollection(CollectionData);
 
-describe('PaginatedCollection Initial', function() {
-    it('PaginatedCollection indirectly inherits Collection', function() {
+describe('PaginatedCollection Initial', () => {
+    it('PaginatedCollection indirectly inherits Collection', () => {
         var isInstance = (PaginatedCollection.prototype instanceof Collection);
 
         chai.expect(isInstance).to.be.an('boolean');
         chai.expect(isInstance).to.equal(true);
     });
 
-    it('PaginatedCollection can add data as Collection would.', function() {
+    it('PaginatedCollection can add data as Collection would.', () => {
         chai.expect(InitialCollection.all()).to.be.an('array');
         chai.expect(InitialCollection.all().length).to.equal(3);
     });

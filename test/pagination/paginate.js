@@ -1,6 +1,5 @@
-var assert = require('assert'),
-    chai = require('chai'),
-    { Collection, PaginatedCollection } = require('../../collection.js');
+import chai from 'chai';
+import { Collection, PaginatedCollection } from '../../collection.js';
 
 var CollectionData = [{
     'forename': 'Mary',
@@ -24,93 +23,93 @@ var CollectionData = [{
     'email': 'joseph.pearson@family.com'
 }];
 
-var PaginatedCollection = new PaginatedCollection(CollectionData, 1);
+var PagedCollection = new PaginatedCollection(CollectionData, 1);
 
-describe('PaginatedCollection pages', function() {
-    describe('paginate()', function() {
-        it('Set the PaginateCollection size into chunks of 1.', function() {
-            chai.expect(PaginatedCollection.all()).to.be.an('array');
-            chai.expect(PaginatedCollection.all().length).to.equal(4);
+describe('PaginatedCollection pages', () => {
+    describe('paginate()', () => {
+        it('Set the PaginateCollection size into chunks of 1.', () => {
+            chai.expect(PagedCollection.all()).to.be.an('array');
+            chai.expect(PagedCollection.all().length).to.equal(4);
         });
 
-        it('paginate() chunks the data into twos.', function() {
-            let pages = PaginatedCollection.paginate(2).all();
+        it('paginate() chunks the data into twos.', () => {
+            let pages = PagedCollection.paginate(2).all();
 
             chai.expect(pages).to.be.an('array');
             chai.expect(pages.length).to.equal(2);
         });
 
-        it('paginate() to have a default of 5.', function() {
-            let pages = PaginatedCollection.paginate(0).all();
+        it('paginate() to have a default of 5.', () => {
+            let pages = PagedCollection.paginate(0).all();
 
             chai.expect(pages).to.be.an('array');
             chai.expect(pages.length).to.equal(1);
         });
 
-        it('paginate() accepts strings.', function() {
-            let pages = PaginatedCollection.paginate('2').all();
+        it('paginate() accepts strings.', () => {
+            let pages = PagedCollection.paginate('2').all();
 
             chai.expect(pages).to.be.an('array');
             chai.expect(pages.length).to.equal(2);
         });
     });
 
-    describe('page()', function() {
-        it('Can get the second page.', function() {
-            let pages = PaginatedCollection.paginate(2).page(2).all();
+    describe('page()', () => {
+        it('Can get the second page.', () => {
+            let pages = PagedCollection.paginate(2).page(2).all();
 
             chai.expect(pages).to.be.an('array');
             chai.expect(pages.length).to.equal(2);
         });
 
-        describe('{pages}', function() {
-            it('{pages} object exists.', function() {
-                PaginatedCollection.paginate(2);
+        describe('{pages}', () => {
+            it('{pages} object exists.', () => {
+                PagedCollection.paginate(2);
 
-                chai.expect(PaginatedCollection.pages).to.be.an('object');
-                chai.expect(PaginatedCollection.pages.current).to.be.a('number');
-                chai.expect(PaginatedCollection.pages.next).to.be.a('number');
-                chai.expect(PaginatedCollection.pages.previous).to.be.a('number');
-                chai.expect(PaginatedCollection.pages.last).to.be.a('number');
-                chai.expect(PaginatedCollection.pages.chunks).to.be.a('number');
+                chai.expect(PagedCollection.pages).to.be.an('object');
+                chai.expect(PagedCollection.pages.current).to.be.a('number');
+                chai.expect(PagedCollection.pages.next).to.be.a('number');
+                chai.expect(PagedCollection.pages.previous).to.be.a('number');
+                chai.expect(PagedCollection.pages.last).to.be.a('number');
+                chai.expect(PagedCollection.pages.chunks).to.be.a('number');
             });
 
-            it('{pages} is set when getting second page of chunks of 1.', function() {
+            it('{pages} is set when getting second page of chunks of 1.', () => {
                 // Split into chunks of 1 for testing next.
-                PaginatedCollection.paginate(1).page(2);
+                PagedCollection.paginate(1).page(2);
 
-                chai.expect(PaginatedCollection.pages.current).to.be.a('number');
-                chai.expect(PaginatedCollection.pages.current).to.equal(2);
-                chai.expect(PaginatedCollection.pages.next).to.be.a('number');
-                chai.expect(PaginatedCollection.pages.next).to.equal(3);
-                chai.expect(PaginatedCollection.pages.previous).to.be.a('number');
-                chai.expect(PaginatedCollection.pages.previous).to.equal(1);
+                chai.expect(PagedCollection.pages.current).to.be.a('number');
+                chai.expect(PagedCollection.pages.current).to.equal(2);
+                chai.expect(PagedCollection.pages.next).to.be.a('number');
+                chai.expect(PagedCollection.pages.next).to.equal(3);
+                chai.expect(PagedCollection.pages.previous).to.be.a('number');
+                chai.expect(PagedCollection.pages.previous).to.equal(1);
             });
 
-            it('{pages.next} isn\'t greater than allowed.', function() {
+            it('{pages.next} isn\'t greater than allowed.', () => {
                 // Split into chunks of 1 for testing next.
-                PaginatedCollection.paginate(1);
+                PagedCollection.paginate(1);
 
-                chai.expect(PaginatedCollection.pages.next).to.be.a('number');
-                chai.expect(PaginatedCollection.pages.next).to.not.equal(5);
+                chai.expect(PagedCollection.pages.next).to.be.a('number');
+                chai.expect(PagedCollection.pages.next).to.not.equal(5);
             });
 
-            it('{pages.next} isn\'t lower than allowed.', function() {
+            it('{pages.next} isn\'t lower than allowed.', () => {
                 // Split into chunks of 1 for testing next.
-                PaginatedCollection.paginate(1).page(0);
+                PagedCollection.paginate(1).page(0);
 
-                chai.expect(PaginatedCollection.pages.current).to.be.a('number');
-                chai.expect(PaginatedCollection.pages.current).to.equal(1);
-                chai.expect(PaginatedCollection.pages.next).to.be.a('number');
-                chai.expect(PaginatedCollection.pages.next).to.equal(2);
-                chai.expect(PaginatedCollection.pages.next).to.not.equal(0);
+                chai.expect(PagedCollection.pages.current).to.be.a('number');
+                chai.expect(PagedCollection.pages.current).to.equal(1);
+                chai.expect(PagedCollection.pages.next).to.be.a('number');
+                chai.expect(PagedCollection.pages.next).to.equal(2);
+                chai.expect(PagedCollection.pages.next).to.not.equal(0);
             });
         });
     });
 
-    describe('next()', function() {
-        it('{pages.next} is greater.', function() {
-            var thePage = PaginatedCollection.paginate(1).page(2);
+    describe('next()', () => {
+        it('{pages.next} is greater.', () => {
+            var thePage = PagedCollection.paginate(1).page(2);
 
             chai.expect(thePage.pages.next).to.be.a('number');
             chai.expect(thePage.pages.next).to.equal(3);
@@ -121,8 +120,8 @@ describe('PaginatedCollection pages', function() {
             chai.expect(thePage.pages.next).to.equal(4);
         });
 
-        it('{pages.next} is doesn\'t exceed {pages.last}.', function() {
-            var thePage = PaginatedCollection.paginate(1).page(4);
+        it('{pages.next} is doesn\'t exceed {pages.last}.', () => {
+            var thePage = PagedCollection.paginate(1).page(4);
 
             chai.expect(thePage.pages.next).to.be.a('number');
             chai.expect(thePage.pages.next).to.equal(4);
@@ -133,9 +132,9 @@ describe('PaginatedCollection pages', function() {
         });
     });
 
-    describe('previous()', function() {
-        it('{pages.previous} is lower.', function() {
-            var thePage = PaginatedCollection.paginate(1).page(3);
+    describe('previous()', () => {
+        it('{pages.previous} is lower.', () => {
+            var thePage = PagedCollection.paginate(1).page(3);
 
             chai.expect(thePage.pages.previous).to.be.a('number');
             chai.expect(thePage.pages.previous).to.equal(2);
@@ -146,8 +145,8 @@ describe('PaginatedCollection pages', function() {
             chai.expect(thePage.pages.previous).to.equal(1);
         });
 
-        it('{pages.previous} is doesn\'t go below 1.', function() {
-            var thePage = PaginatedCollection.paginate(1).page(2);
+        it('{pages.previous} is doesn\'t go below 1.', () => {
+            var thePage = PagedCollection.paginate(1).page(2);
 
             chai.expect(thePage.pages.previous).to.be.a('number');
             chai.expect(thePage.pages.previous).to.equal(1);
