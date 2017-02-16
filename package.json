@@ -1,15 +1,19 @@
 {
   "name": "@ampersarnie/collection",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Collection",
   "main": "collection.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ampjs/Amp-Collection.git"
+  },
   "options": {},
   "scripts": {
     "mocha": "./node_modules/.bin/mocha --growl test/tests.js --compilers js:babel-core/register -r jsdom-global/register",
     "mocha:report": "npm run -s mocha -- --reporter markdown test/tests.js > test/REPORT.md; echo $(($(date +'%s * 1000 + %-N / 1000000'))) >> test/REPORT.md; echo 'COMPLETED REPORT'",
     "build": "npm run build:rup && npm run build:webpack && npm run build:gzip",
     "build:rup": "rollup -c config/rollup.config.js",
-    "build:webpack": "webpack --config config/webpack.config.js",
+    "build:webpack": "./node_modules/.bin/webpack --config config/webpack.config.js",
     "build:gzip": "gzip -c collection.min.js > collection.min.js.gz",
     "build:test": "npm run build; npm run mocha",
     "prepublish": "npm run build; npm run mocha; npm run -s mocha:report",
@@ -38,10 +42,11 @@
     "jsdom-global": "2.1.1",
     "mocha": "^2.4.5",
     "uglify-js": "git://github.com/mishoo/UglifyJS2#harmony",
-    "uglifyjs-webpack-plugin": "^0.1.4"
+    "uglifyjs-webpack-plugin": "^0.1.4",
+    "webpack": "^2.2.1"
   },
   "dependencies": {
-    "@ampersarnie/implements": "^0.3.1",
+    "@ampersarnie/implements": "^0.3.3",
     "babel-runtime": "^6.23.0"
   }
 }
