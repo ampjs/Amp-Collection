@@ -1,4 +1,10 @@
+import Collection from './src/Collection.js';
+import PaginatedCollection from './src/PaginatedCollection.js';
+
+window.Collection = Collection;
+window.PaginatedCollection = PaginatedCollection;
+
 module.exports = {
-    Collection: require('./lib/Collection.js').default,
-    PaginatedCollection: require('./lib/PaginatedCollection.js').default
+    Collection: Collection,
+    PaginatedCollection: PaginatedCollection
 };
