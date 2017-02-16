@@ -1,10 +1,14 @@
-documentation/*
+# Dependency directory
 node_modules/*
+
+# Mac Files
 .DS_Store
 
-npm-debug.log
+# Logs
+*.log
 
-yarn-error.log
+# Yarn
 yarn.lock
 
-test/REPORT.md
+# ESDocs
+documentation/*

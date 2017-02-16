@@ -7,7 +7,7 @@
   "scripts": {
     "mocha": "./node_modules/.bin/mocha --growl test/tests.js --compilers js:babel-core/register -r jsdom-global/register",
     "mocha:report": "npm run mocha -- --reporter markdown test/tests.js > test/REPORT.md; echo $(($(date +'%s * 1000 + %-N / 1000000'))) >> test/REPORT.md",
-    "build": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
+    "build": "rollup -c && webpack && gzip -c collection.min.js > collection.min.js.gz",
     "build:test": "npm run build; npm run mocha",
     "prepublish": "npm run build; npm run mocha; npm run mocha:report",
     "lint": "eslint src/*"
@@ -29,6 +29,7 @@
     "babel-loader": "^6.3.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.22.0",
+    "babili-webpack-plugin": "0.0.10",
     "chai": "^3.5.0",
     "jsdom": "9.11.0",
     "jsdom-global": "2.1.1",
